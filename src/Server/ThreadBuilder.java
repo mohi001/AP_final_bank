@@ -10,18 +10,18 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ThreadBuilder extends Thread{
-    private ArrayList<Account>accounts ;
+    private ArrayList<User>users ;
     private Socket socket ;
     private ServerSocket serverSocket ;
     private ExecutorService executorService ;
 
-    public ThreadBuilder(ArrayList<Account>accounts){
-        this.accounts = accounts ;
+    public ThreadBuilder(ArrayList<User>accounts){
+        this.users = accounts ;
         socket = null ;
         try {
             serverSocket = new ServerSocket(8888) ;
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         executorService = null ;
     }
@@ -33,9 +33,9 @@ public class ThreadBuilder extends Thread{
             try {
                 socket = serverSocket.accept() ;
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
-            Thread thread = new Thread(new BankPanel(socket , accounts)) ;
+            Thread thread = new Thread(new BankPanel(socket , users)) ;
             executorService.execute(thread);
         }
 

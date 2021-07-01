@@ -6,30 +6,30 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        ArrayList<Account> accounts = new ArrayList<>() ;
+        ArrayList<User> users = new ArrayList<>() ;
         Scanner scanner = new Scanner(System.in) ;
-        File file = new File("Accounts.txt") ;
+        File file = new File("Users.txt") ;
 
         if (file.exists()){
             FileInputStream fileInputStream = new FileInputStream(file);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             try {
-                accounts = (ArrayList<Account>) objectInputStream.readObject();
+                users = (ArrayList<User>) objectInputStream.readObject();
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
             objectInputStream.close();
             fileInputStream.close() ;
         }
 
-        ThreadBuilder threadBuilder = new ThreadBuilder(accounts);
+        ThreadBuilder threadBuilder = new ThreadBuilder(users);
         threadBuilder.start();
         scanner.nextLine();
 
 
         FileOutputStream fileOutputStream = new FileOutputStream(file);
         ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream) ;
-        outputStream.writeObject(accounts);
+        outputStream.writeObject(users);
         System.exit(0);
 
     }
