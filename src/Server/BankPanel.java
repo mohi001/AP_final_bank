@@ -24,6 +24,7 @@ public class BankPanel implements Runnable{
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+
         user = null ;
     }
     @Override
@@ -40,6 +41,8 @@ public class BankPanel implements Runnable{
                     case "sign up":
                         signUp();
                         break;
+                    case "new account":
+
                 }
             }
         }catch (IOException e){
@@ -73,6 +76,20 @@ public class BankPanel implements Runnable{
         else{
             outputStream.writeUTF("Nok");
         }
+    }
+
+    private void newAccount() throws IOException {
+        String type = inputStream.readUTF() ;
+        AccountType accountType ;
+
+        if (type.equals("A"))
+            accountType = AccountType.A ;
+        else
+            accountType = AccountType.B ;
+
+        String password = inputStream.readUTF() ;
+        user.addMyAccount(new Account(accountType , password));
+        outputStream.writeUTF("ok");
     }
 
     private User searchUser(String identity){

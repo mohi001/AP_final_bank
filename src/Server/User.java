@@ -1,15 +1,19 @@
 package Server;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class User implements Serializable {
     private String identityNumber , email , password , phone;
+    private ArrayList<Account> myAccounts ;
+
 
     public User(String identityNumber, String email, String password, String phone) {
         this.identityNumber = identityNumber;
         this.email = email;
         this.password = password;
         this.phone = phone;
+        myAccounts = new ArrayList<>();
     }
 
     public String getIdentityNumber() {
@@ -26,5 +30,9 @@ public class User implements Serializable {
 
     public String getPhone() {
         return phone;
+    }
+
+    public void addMyAccount(Account account){
+        myAccounts.add(account) ;
     }
 }
