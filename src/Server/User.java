@@ -35,4 +35,8 @@ public class User implements Serializable {
     public void addMyAccount(Account account){
         myAccounts.add(account) ;
     }
+
+    public ArrayList<Account> getMyAccounts() {
+        return myAccounts;
+    }
 }

@@ -6,21 +6,22 @@ import java.util.ArrayList;
 
 public class BankPanel implements Runnable{
     private Socket socket ;
-    private DataInputStream inputStream ;
-    private DataOutputStream outputStream ;
+    private ObjectInputStream inputStream ;
+    private ObjectOutputStream outputStream ;
     private User user ;
     private ArrayList<User> users ;
+    private Account account ;
 
     public BankPanel(Socket socket , ArrayList<User>users){
         this.users = users ;
         this.socket = socket ;
         try {
-            inputStream = new DataInputStream(socket.getInputStream()) ;
+            inputStream = new ObjectInputStream(socket.getInputStream()) ;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
         try {
-            outputStream = new DataOutputStream(socket.getOutputStream()) ;
+            outputStream = new ObjectOutputStream(socket.getOutputStream()) ;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -42,7 +43,15 @@ public class BankPanel implements Runnable{
                         signUp();
                         break;
                     case "new account":
-
+                        newAccount();
+                        break;
+                    case "get accounts":
+                        getMyAccounts();
+                        break;
+                    case "open account":
+                        openAccount();
+                        break;
+                    case "account status":
                 }
             }
         }catch (IOException e){
@@ -100,5 +109,19 @@ public class BankPanel implements Runnable{
                 return users.get(i);
         }
         return null ;
+    }
+
+    private void getMyAccounts() throws IOException {
+        outputStream.writeObject(user.getMyAccounts());
+    }
+
+    private void openAccount() throws IOException {
+        account = (user.getMyAccounts()).get(inputStream.readInt()) ;
+    }
+
+    private void accountStatus() throws IOException {
+        outputStream.writeUTF(account.getAccountType());
+        outputStream.writeDouble(account.getBalance());
+        outputStream.writeObject(account.getTransactions());
     }
 }
