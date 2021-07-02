@@ -8,6 +8,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setScene(new First(stage));
+        stage.setTitle("|");
         stage.show();
     }
 

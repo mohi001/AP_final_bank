@@ -21,9 +21,9 @@ public class First extends Scene {
     public First(Stage stage) throws FileNotFoundException {
         super(root,900, 700);
         ButtonScene signIn = new ButtonScene(100,100,
-                "src/Client/Resources/sign_in.png",null,stage);
+                "src/Client/Resources/sign_in.png",new SignIn(stage),stage);
         ButtonScene signUp = new ButtonScene(100,100,
-                "src/Client/Resources/sign_up.png",null,stage);
+                "src/Client/Resources/sign_up.png",new SignUp(stage),stage);
         root.getChildren().addAll(signIn,signUp);
         signIn.setTranslateY(height/2);
         signUp.setTranslateY(height/2);
