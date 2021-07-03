@@ -23,6 +23,8 @@ public class Main {
         }
 
         ThreadBuilder threadBuilder = new ThreadBuilder(users);
+        LoanSystem loanSystem = new LoanSystem(users) ;
+        loanSystem.start();
         threadBuilder.start();
         scanner.nextLine();
 
