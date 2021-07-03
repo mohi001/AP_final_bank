@@ -6,10 +6,10 @@ import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 
-public class CloseAcountS extends Scene {
+public class CloseAccountS extends Scene {
     private static final VBox root = new VBox();
 
-    public CloseAcountS(Stage stage) throws FileNotFoundException {
+    public CloseAccountS(Stage stage) throws FileNotFoundException {
         super(root, 900, 700);
     }
 }

@@ -1,5 +1,6 @@
 package Client;
 
+import Client.Menu.Menu;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,12 +19,12 @@ public class SignIn extends Scene {
     private final double height = 700;
     private final double width = 900;
 
-    public SignIn(Stage stage) throws FileNotFoundException {
+    public SignIn(Stage stage, Messenger ms) throws FileNotFoundException {
 
-        super(root,900, 700);
+        super(root, 900, 700);
         root.setBackground(new Background(new BackgroundFill
                 (Color.BLUEVIOLET, new CornerRadii(1),
-                        new Insets(0.0,0.0,0.0,0.0))));
+                        new Insets(0.0, 0.0, 0.0, 0.0))));
 
         InUpField codeM = new InUpField("src/Client/Resources/sign_in.png",
                 "national code",
@@ -35,27 +36,45 @@ public class SignIn extends Scene {
                             Integer.parseInt(s);
                             //if (s.length() != 10)
                             return true;
-                        }catch (Exception e)
+                        } catch (Exception e)
                         {
                             return false;
                         }
                     }
                 }, "please inter valid code",
-                width / 2 - 300, height / 2 - 100,false);
+                width / 2 - 300, height / 2 - 100, false);
 
 
         PasswordField pass = new PasswordField();
-        pass.setPrefSize(400,50);
-        pass.setTranslateX(width/2 - 200);
-        pass.setTranslateY(height/2);
+        pass.setPrefSize(400, 50);
+        pass.setTranslateX(width / 2 - 200);
+        pass.setTranslateY(height / 2);
         pass.setPromptText("password");
 
 
         Button button = new Button("sign in");
-        button.setPrefSize(200,50);
-        button.setTranslateX(width/2 - 100);
+        button.setPrefSize(200, 50);
+        button.setTranslateX(width / 2 - 100);
         button.setTranslateY(height - 100);
-        button.setOnAction(e -> codeM.checkValid());
-        root.getChildren().addAll(codeM,button,pass);
+        button.setOnAction(e -> {
+            if (codeM.checkValid())
+            {
+                String string = ms.send("up " + codeM.getText() + " " + pass.getText());
+                if (string.equals("true"))
+                {
+                    try
+                    {
+                        stage.setScene(new Menu(stage, ms));
+                    } catch (FileNotFoundException fileNotFoundException)
+                    {
+                        fileNotFoundException.printStackTrace();
+                    }
+                } else
+                {
+                    //TODO
+                }
+            }
+        });
+        root.getChildren().addAll(codeM, button, pass);
     }
 }

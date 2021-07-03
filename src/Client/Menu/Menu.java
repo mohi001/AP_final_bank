@@ -1,6 +1,7 @@
 package Client.Menu;
 
 import Client.ButtonScene;
+import Client.Messenger;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
@@ -13,7 +14,7 @@ import java.io.FileNotFoundException;
 public class Menu extends Scene {
     private static final VBox root = new VBox();
 
-    public Menu(Stage stage) throws FileNotFoundException {
+    public Menu(Stage stage, Messenger ms) throws FileNotFoundException {
         super(root, 900, 700);
         HBox up = new HBox();
         up.setPrefSize(900, 200);

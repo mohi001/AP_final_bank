@@ -57,10 +57,15 @@ public class InUpField extends HBox {
         {
             notVL.setText("");
             return true;
-        }else
+        } else
         {
             notVL.setText("   " + notValid);
             return false;
         }
+    }
+
+    public String getText()
+    {
+        return textField.getText();
     }
 }

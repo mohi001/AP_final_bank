@@ -1,5 +1,6 @@
 package Client;
 
+import Client.Menu.Menu;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.Image;
@@ -26,5 +27,11 @@ public class ButtonScene extends Hyperlink {
         setPrefWidth(sizeX);
         setPrefHeight(sizeY);
         setOnAction(e -> stage.setScene(target));
+    }
+
+    public static ButtonScene getBackButton(Messenger ms, Stage stage) throws FileNotFoundException
+    {
+        return new ButtonScene(50, 50, "src/Client/Resources/sign_in.png",
+                new Menu(stage, ms), stage);
     }
 }
