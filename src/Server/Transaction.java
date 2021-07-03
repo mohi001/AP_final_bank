@@ -1,34 +1,37 @@
 package Server;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Calendar;
+
 
 public class Transaction implements Serializable {
-    private LocalDateTime date ;
-    private String receiverAccountNumber ;
-    private int balance ;
-    private String alias ;
+    private int accountNumber ;
+    private double balance ;
+    private String type ;
+    private int year , month , day , hour , minute ;
 
-    public Transaction(String receiverAccountNumber, int balance) {
-        this.receiverAccountNumber = receiverAccountNumber;
-        this.balance = balance;
-        date = LocalDateTime.now() ;
-        alias = null ;
+    public Transaction(int accountNumber, double balance, TransactionType type) {
+        this(type , balance) ;
+        accountNumber = accountNumber;
     }
-    public Transaction(String receiverAccountNumber, int balance, String alias) {
-        this(receiverAccountNumber , balance) ;
-        this.alias = alias ;
+
+    public Transaction(TransactionType type, double balance) {
+        this.type = type.toString() ;
+        this.balance = balance;
+        year = Calendar.YEAR ;
+        month = Calendar.MONTH ;
+        day = Calendar.DAY_OF_MONTH ;
+        hour = Calendar.HOUR_OF_DAY ;
+        minute = Calendar.MINUTE ;
     }
 
     @Override
     public String toString() {
-        String s = "receiver: " ;
-        if (alias == null)
-            s += receiverAccountNumber ;
-        else
-            s += alias ;
-        s += "\n" ;
-        s += date.getDayOfMonth()  + " " + date.getMonth() + " " + date.getYear() + "   " + date.getHour() + ":" + date.getMinute() + "\n balance: " + balance ;
+        String s = month + "/" + day + "/" + year + " " + type + " " ;
+        if (type.equals(TransactionType.RECEIVER) || type.equals(TransactionType.SENDER)){
+            s += accountNumber ;
+        }
+        s += balance ;
         return s ;
     }
 }

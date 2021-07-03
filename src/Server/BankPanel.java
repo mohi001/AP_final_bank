@@ -11,6 +11,7 @@ public class BankPanel implements Runnable{
     private User user ;
     private ArrayList<User> users ;
     private Account account ;
+    private ArrayList<Account>allAccounts ;
 
     public BankPanel(Socket socket , ArrayList<User>users){
         this.users = users ;
@@ -25,11 +26,21 @@ public class BankPanel implements Runnable{
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
+        setAllAccounts();
         user = null ;
     }
-    @Override
 
+    public void setAllAccounts() {
+        allAccounts = new ArrayList<>();
+        for (int i = 0; i < users.size(); i++) {
+            ArrayList<Account>accounts = users.get(i).getMyAccounts() ;
+            for (int j = 0; j < accounts.size(); j++) {
+                allAccounts.add(accounts.get(j)) ;
+            }
+        }
+    }
+
+    @Override
     public void run() {
         String s = "" ;
         try {
@@ -51,7 +62,7 @@ public class BankPanel implements Runnable{
                     case "open account":
                         openAccount();
                         break;
-                    case "account status":
+
                 }
             }
         }catch (IOException e){
@@ -119,9 +130,19 @@ public class BankPanel implements Runnable{
         account = (user.getMyAccounts()).get(inputStream.readInt()) ;
     }
 
-    private void accountStatus() throws IOException {
-        outputStream.writeUTF(account.getAccountType());
-        outputStream.writeDouble(account.getBalance());
-        outputStream.writeObject(account.getTransactions());
+    private Account searchAccount(int accountNumber){
+        if (allAccounts == null)
+            return null ;
+        for (int i = 0; i < allAccounts.size(); i++) {
+            if (allAccounts.get(i).getAccountNumber() == accountNumber)
+                return allAccounts.get(i);
+        }
+        return null ;
     }
+
+    private void transfer(Account sender, Account receiver , double balance){
+        sender.setBalance(sender.getBalance() - balance);
+        receiver.setBalance(receiver.getBalance() + balance);
+    }
+
 }
