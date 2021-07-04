@@ -72,7 +72,7 @@ public class BankPanel implements Runnable{
                     case "UAliasL":
                         getList();
                         break;
-                    case "pay bill":
+                    case "bill":
                         payBill();
                         break;
                     case "loan":
