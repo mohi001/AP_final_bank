@@ -42,7 +42,7 @@ public class InUpField extends HBox {
         getChildren().add(textField);
 
         notVL = new Label();
-        notVL.setPrefSize(400,50);
+        notVL.setPrefSize(200, 50);
         getChildren().add(notVL);
         setTranslateX(posX);
         setTranslateY(posY);
@@ -67,5 +67,9 @@ public class InUpField extends HBox {
     public String getText()
     {
         return textField.getText();
+    }
+
+    public void setText(String s) {
+        textField.setText(s);
     }
 }
