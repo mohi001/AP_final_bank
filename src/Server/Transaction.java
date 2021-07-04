@@ -1,7 +1,8 @@
 package Server;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.time.LocalDateTime;
+
 
 
 public class Transaction implements Serializable {
@@ -12,26 +13,30 @@ public class Transaction implements Serializable {
 
     public Transaction(int accountNumber, double balance, TransactionType type) {
         this(type , balance) ;
-        accountNumber = accountNumber;
+        this.accountNumber = accountNumber;
     }
 
     public Transaction(TransactionType type, double balance) {
         this.type = type.toString() ;
         this.balance = balance;
-        year = Calendar.YEAR ;
-        month = Calendar.MONTH ;
-        day = Calendar.DAY_OF_MONTH ;
-        hour = Calendar.HOUR_OF_DAY ;
-        minute = Calendar.MINUTE ;
+        LocalDateTime localDateTime = LocalDateTime.now() ;
+        year = localDateTime.getYear() ;
+        month = localDateTime.getMonthValue() ;
+        day = localDateTime.getDayOfMonth() ;
+        hour = localDateTime.getHour() ;
+        minute = localDateTime.getMinute() ;
     }
 
     @Override
     public String toString() {
-        String s = month + "/" + day + "/" + year + " " + type + " " ;
-        if (type.equals(TransactionType.RECEIVER) || type.equals(TransactionType.SENDER)){
+        String s = month + "/" + day + "/" + year + " " + hour + ":" + minute + " " + type + " " ;
+        if (type.equals(TransactionType.RECEIVER.toString()) || type.equals(TransactionType.SENDER.toString())){
             s += accountNumber ;
         }
-        s += balance ;
+        else {
+            s += -1 ;
+        }
+        s += " " + balance ;
         return s ;
     }
 }

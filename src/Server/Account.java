@@ -7,30 +7,25 @@ public class Account implements Serializable {
     private AccountType accountType ;
     private String password ;
     private int accountNumber ;
-    private static int number = 1000 ;
     private ArrayList<Transaction>transactions ;
     private double balance ;
     private String alias ;
     private ArrayList<AliasAccount> list ;
     private Loan loan ;
 
-    public Account(AccountType accountType, String password) {
+    public Account(AccountType accountType, String password , double balance) {
         this.accountType = accountType;
         this.password = password;
         accountNumber = setAccountNumber() ;
         transactions = new ArrayList<>() ;
-        balance = 0 ;
+        this.balance = balance ;
         list = new ArrayList<>() ;
         loan = null ;
+        alias = null ;
     }
 
     public int getAccountNumber() {
         return accountNumber;
-    }
-
-    public Account(AccountType accountType, String password, String alias) {
-        this(accountType , password);
-        this.alias = alias ;
     }
 
     public boolean haveLoan(){
@@ -50,8 +45,8 @@ public class Account implements Serializable {
     }
 
     private synchronized int setAccountNumber(){
-        number++ ;
-        return number ;
+        Main.accountNumberSetter++ ;
+        return Main.accountNumberSetter ;
     }
 
     public Loan getLoan() {
@@ -82,10 +77,6 @@ public class Account implements Serializable {
         this.balance = balance;
     }
 
-    public void addList(Account account , String alias){
-        list.add(new AliasAccount(account.getAccountNumber() , alias)) ;
-    }
-
     public boolean send(int number , double balance){
         if (getBalance() >= balance){
             this.balance -= balance ;
@@ -103,13 +94,26 @@ public class Account implements Serializable {
     public boolean payBill(double balance){
         if (getBalance() >= balance){
             this.balance -= balance ;
-            transactions.add(new Transaction(number , balance , TransactionType.PAY_BILL)) ;
+            transactions.add(new Transaction(accountNumber , balance , TransactionType.PAY_BILL)) ;
             return true ;
         }
         return false ;
     }
 
     public void payLoan(double balance){
-        transactions.add(new Transaction(number , balance , TransactionType.PAY_BILL)) ;
+        transactions.add(new Transaction(accountNumber , balance , TransactionType.LOAN)) ;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String toString() {
+        String s = Integer.toString(accountNumber) + " " + accountType.toString() + " " + balance + " " ;
+        if (alias == null)
+            s += -1 ;
+        else s += alias ;
+        return s ;
     }
 }

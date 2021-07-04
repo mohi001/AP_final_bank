@@ -1,6 +1,6 @@
 package Server;
 
 public enum AccountType{
-    A ,
-    B
+    SAVING_ACCOUNT ,
+    CHECKING_ACCOUNT
 }

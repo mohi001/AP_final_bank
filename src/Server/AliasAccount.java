@@ -18,4 +18,8 @@ public class AliasAccount implements Serializable {
     public void setAlias(String alias) {
         this.alias = alias;
     }
+
+    public int getAccountNumber() {
+        return accountNumber;
+    }
 }
