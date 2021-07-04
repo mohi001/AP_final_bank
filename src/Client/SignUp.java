@@ -34,7 +34,11 @@ public class SignUp extends Scene {
                 new ValidAble() {
                     @Override
                     public boolean isValid(String s) {
-                        return true;
+                        if (s.split("\\s").length == 2)
+                        {
+                            return true;
+                        }
+                        return false;
                     }
                 }, "please inter valid Name",
                 width / 2 - 250, height / 2 - 200,false);
