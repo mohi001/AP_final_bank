@@ -36,7 +36,7 @@ UAliasAdd + name + code === true/false
 transfer + money Account_number_from + pass + Account_number_to
 
 //get information about accounts
-accounts === "number kind(SAVING_ACCOUNT ,CHECKING_ACCOUNT) money 	alias(-1 if null)
+accounts === "number kind(SAVING_ACCOUNT ,CHECKING_ACCOUNT) money 	alias(-1 if null)\n..."
 
 //get transactions
 trans + code === "date date type account_to(if ghabz or loan -1) balance"

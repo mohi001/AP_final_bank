@@ -1,15 +1,25 @@
 package Client.Menu;
 
+import Client.Messenger;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 
 public class InfoS extends Scene {
-    private static final VBox root = new VBox();
+    private static final ScrollPane root = new ScrollPane();
 
-    public InfoS(Stage stage) throws FileNotFoundException {
+    public InfoS(Stage stage, Messenger ms) throws FileNotFoundException {
         super(root, 900, 700);
+        root.setPadding(new Insets(50));
+        Accordion accordion = new Accordion();
+        String answer = ms.send("accounts");
+        for (String s : answer.split("\\r?\\n"))
+        {
+            accordion.getPanes().add(new AccountsInfoPane(ms, s));
+        }
     }
 }
