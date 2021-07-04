@@ -1,0 +1,42 @@
+*******protocol to connect between server and client*******
+
+
+client ==== server
+send   === answer
+
+
+
+//sign up
+up + name + code + password + phone + email === true/false
+
+//sing in
+in + code + pass === "name email" / false
+
+//new account
+new + kind + pas + money === "account_number"
+
+//request loan
+loan + money + month - account_number === true/false??
+
+//my alias list
+MAliasL === "name1 code1\n
+			  name2 code2\n...."
+
+//add my alias
+MAliasAdd + name + code === true/false
+
+\\useful alias list
+UAliasL ===  "name1 code1\n
+			  name2 code2\n...."
+			  
+//add useful alias
+UAliasAdd + name + code === true/false
+
+//transfer money
+transfer + money Account_number_from + pass + Account_number_to
+
+//get information about accounts
+accounts === "number kind(s/ch????) money 	alias(-1 if null)
+
+//get transactions
+trans + code === "date type account_to(if ghabz or loan -1) balance"
