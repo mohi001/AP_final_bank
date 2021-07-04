@@ -1,28 +1,29 @@
 package Server;
 
+import javax.xml.crypto.Data;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
 public class BankPanel implements Runnable{
     private Socket socket ;
-    private ObjectInputStream inputStream ;
-    private ObjectOutputStream outputStream ;
+    private DataInputStream inputStream ;
+    private DataOutputStream outputStream ;
     private User user ;
     private ArrayList<User> users ;
-    private Account account ;
     private ArrayList<Account>allAccounts ;
+
 
     public BankPanel(Socket socket , ArrayList<User>users){
         this.users = users ;
         this.socket = socket ;
         try {
-            inputStream = new ObjectInputStream(socket.getInputStream()) ;
+            inputStream = new DataInputStream(socket.getInputStream()) ;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
         try {
-            outputStream = new ObjectOutputStream(socket.getOutputStream()) ;
+            outputStream = new DataOutputStream(socket.getOutputStream()) ;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -59,10 +60,27 @@ public class BankPanel implements Runnable{
                     case "get accounts":
                         getMyAccounts();
                         break;
-                    case "open account":
-                        openAccount();
+                    case "transfer":
+                        transfer();
                         break;
-
+                    case "traction":
+                        getTraction();
+                        break;
+                    case "add list":
+                        listAdd();
+                        break;
+                    case "get list":
+                        getList();
+                        break;
+                    case "pay bill":
+                        payBill();
+                        break;
+                    case "loan":
+                        loan();
+                        break;
+                    case "set alias":
+                        setAliasAccount();
+                        break;
                 }
             }
         }catch (IOException e){
@@ -71,14 +89,15 @@ public class BankPanel implements Runnable{
     }
 
     private void logIn() throws IOException {
+        System.out.println("fdf");
         String identity = inputStream.readUTF() ;
         String password = inputStream.readUTF() ;
         User temp = searchUser(identity);
         if (temp == null || !temp.getPassword().equals(password))
-            outputStream.writeUTF("Nok");
+            outputStream.writeBoolean(false);
         else {
             user = temp;
-            outputStream.writeUTF("ok");
+            outputStream.writeBoolean(true);
         }
     }
 
@@ -91,10 +110,10 @@ public class BankPanel implements Runnable{
         if (temp == null){
             user = new User(identity , email , password , phone) ;
             users.add(user) ;
-            outputStream.writeUTF("ok");
+            outputStream.writeBoolean(true);
         }
         else{
-            outputStream.writeUTF("Nok");
+            outputStream.writeBoolean(false);
         }
     }
 
@@ -102,14 +121,17 @@ public class BankPanel implements Runnable{
         String type = inputStream.readUTF() ;
         AccountType accountType ;
 
-        if (type.equals("A"))
-            accountType = AccountType.A ;
+        if (type.equals(AccountType.CHECKING_ACCOUNT.toString()))
+            accountType = AccountType.CHECKING_ACCOUNT ;
         else
-            accountType = AccountType.B ;
+            accountType = AccountType.SAVING_ACCOUNT ;
 
         String password = inputStream.readUTF() ;
-        user.addMyAccount(new Account(accountType , password));
-        outputStream.writeUTF("ok");
+        double balance = Double.parseDouble(inputStream.readUTF()) ;
+        Account account = new Account(accountType , password , balance) ;
+        user.addMyAccount(account);
+        allAccounts.add(account) ;
+        System.out.println(account);
     }
 
     private User searchUser(String identity){
@@ -123,11 +145,19 @@ public class BankPanel implements Runnable{
     }
 
     private void getMyAccounts() throws IOException {
-        outputStream.writeObject(user.getMyAccounts());
-    }
-
-    private void openAccount() throws IOException {
-        account = (user.getMyAccounts()).get(inputStream.readInt()) ;
+        String s = "";
+        ArrayList<Account> accounts = user.getMyAccounts();
+        if (accounts == null)
+            outputStream.writeUTF("");
+        else {
+            for (int i = 0; i < accounts.size() - 1; i++) {
+                s += accounts.get(i).toString() + "\n";
+            }
+            if (accounts.size() > 0)
+                s += accounts.get(accounts.size() - 1).toString();
+            outputStream.writeUTF(s);
+            System.out.println(s);
+        }
     }
 
     private Account searchAccount(int accountNumber){
@@ -140,9 +170,88 @@ public class BankPanel implements Runnable{
         return null ;
     }
 
-    private void transfer(Account sender, Account receiver , double balance){
-        sender.setBalance(sender.getBalance() - balance);
-        receiver.setBalance(receiver.getBalance() + balance);
+    private void transfer() throws IOException {
+        Account sender = searchAccount(Integer.parseInt(inputStream.readUTF())) ;
+        Account receiver = searchAccount(Integer.parseInt(inputStream.readUTF())) ;
+        String password = inputStream.readUTF() ;
+        double balance = Double.parseDouble(inputStream.readUTF()) ;
+        if (sender == null || receiver == null || !sender.getPassword().equals(password) || balance > sender.getBalance())
+            outputStream.writeBoolean(false);
+        else {
+            outputStream.writeBoolean(true);
+            sender.send(receiver.getAccountNumber() , balance) ;
+            receiver.receive(sender.getAccountNumber() , balance);
+        }
+    }
+
+    private void getTraction() throws IOException {
+        Account account = searchAccount(Integer.parseInt(inputStream.readUTF())) ;
+        if (account == null)
+            outputStream.writeBoolean(false);
+        else {
+            outputStream.writeBoolean(true);
+            String s = "" ;
+            ArrayList<Transaction> transactions = account.getTransactions() ;
+            for (int i = 0; i < transactions.size()-1; i++) {
+                s += transactions.get(i).toString() + "\n" ;
+            }
+            if (transactions.size() > 0)
+                s += transactions.get(transactions.size()-1) ;
+            outputStream.writeUTF(s);
+            System.out.println(s);
+        }
+    }
+
+    private void listAdd() throws IOException {
+        int accountNumber = Integer.parseInt(inputStream.readUTF());
+        String alias = inputStream.readUTF();
+        Account account = searchAccount(accountNumber) ;
+        if (account == null)
+            outputStream.writeBoolean(false);
+        else{
+            outputStream.writeBoolean(true);
+            user.getList().add(new AliasAccount(accountNumber , alias)) ;
+        }
+    }
+
+    private void getList() throws IOException {
+        String s = "" ;
+        ArrayList<AliasAccount>list = user.getList();
+        for (int i = 0; i < list.size() - 1; i++) {
+            s += list.get(i).getAccountNumber() + " " + list.get(i).getAlias() + "\n" ;
+        }
+        if (list.size() > 0)
+            s += list.get(list.size()-1).getAccountNumber() + " " + list.get(list.size()-1).getAlias() ;
+        outputStream.writeUTF(s);
+        System.out.println(s);
+    }
+
+    private void payBill() throws IOException {
+        Account sender = searchAccount(Integer.parseInt(inputStream.readUTF())) ;
+        String password = inputStream.readUTF() ;
+        double balance = 1 ;
+        if (sender == null || !sender.getPassword().equals(password) || balance > sender.getBalance())
+            outputStream.writeBoolean(false);
+        else {
+            outputStream.writeBoolean(true);
+            sender.payBill(balance) ;
+        }
+    }
+
+    private void loan() throws IOException {
+        Account account = searchAccount(Integer.parseInt(inputStream.readUTF())) ;
+        double balance = Double.parseDouble(inputStream.readUTF()) ;
+        int numberOfMonths = Integer.parseInt(inputStream.readUTF()) ;
+        if (account == null)
+            outputStream.writeBoolean(false);
+        else
+            outputStream.writeBoolean(account.newLoan(balance , numberOfMonths));
+    }
+
+    private void setAliasAccount() throws IOException {
+        Account account = searchAccount(Integer.parseInt(inputStream.readUTF()));
+        String alias = inputStream.readUTF();
+        account.setAlias(alias);
     }
 
 }

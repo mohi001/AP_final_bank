@@ -15,10 +15,12 @@ public class LoanSystem extends Thread implements Serializable {
     public void setLoans() {
         for (int i = 0; i < users.size(); i++) {
             ArrayList<Account> accounts = users.get(i).getMyAccounts() ;
-            for (int j = 0; j < accounts.size(); j++) {
-                Loan loan = accounts.get(i).getLoan() ;
-                if (!loan.isFinish()){
-                    loan.start();
+            if (accounts != null) {
+                for (int j = 0; j < accounts.size(); j++) {
+                    Loan loan = accounts.get(j).getLoan();
+                    if (loan != null && !loan.isFinish()) {
+                        loan.start();
+                    }
                 }
             }
         }
