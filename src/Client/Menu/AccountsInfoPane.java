@@ -32,21 +32,22 @@ public class AccountsInfoPane extends TitledPane {
                 isSeen = true;
             }
         });
+        setStyle("-fx-font-size: 20");
     }
 
     private void setTitle(String string) {
         //set title
         String[] strings = string.split("\\s");
         accountNum = strings[0];
-        String title = spacing(strings[0], 20);
+        String title = spacing(strings[0], 25);
         if (strings[1].equals("SAVING_ACCOUNT"))
         {
-            title += spacing("saving account", 16);
+            title += spacing("saving account", 30);
         } else
         {
-            title += spacing("checking account", 16);
+            title += spacing("checking account", 30);
         }
-        title += spacing(strings[2], 10);
+        title += spacing(strings[2], 20);
         if (strings[3].equals("-1"))
         {
             title += "       -       ";
@@ -60,7 +61,8 @@ public class AccountsInfoPane extends TitledPane {
     private String spacing(String s, int a)
     {
         StringBuilder sBuilder = new StringBuilder(s);
-        for (int i = 0; i < a - sBuilder.length(); i++)
+        int b = sBuilder.length();
+        for (int i = 0; i < a - b; i++)
         {
             sBuilder.append(" ");
         }

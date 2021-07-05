@@ -1,6 +1,6 @@
 package Client;
 
-import Client.Menu.CloseAccountS;
+import Client.Menu.InfoS;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -16,7 +16,7 @@ public class Main extends Application {
         DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
         DataInputStream inputStream = new DataInputStream(socket.getInputStream());
         Messenger messenger = new Messenger(outputStream, inputStream);
-        stage.setScene(new CloseAccountS(stage, messenger));
+        stage.setScene(new InfoS(stage, messenger));
         stage.setTitle("|");
         stage.show();
     }
