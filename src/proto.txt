@@ -7,10 +7,21 @@ send   === answer
 
 
 //sign up
-up + name + code + password + phone + email === true/false
+up + name + code + password + phone + email === "true/false"
 
 //sing in
-in + code + pass === "name email" / false
+in + code + pass === "true/false"
+
+//send verification code for email
+code === "true/false"
+//cancel sign up
+"exit" === "true"
+
+//get email and name
+name === "name email"
+
+//sing in
+in + code + pass === "true/false"
 
 //new account
 new + kind + pas + money === "account_number"
@@ -47,3 +58,5 @@ close + accountNumber + password === true/false
 // pay bill
 bill + accountNumber + password === true/false
 
+//exit account
+exit === "true"
