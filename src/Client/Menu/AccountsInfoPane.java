@@ -6,6 +6,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
+
 public class AccountsInfoPane extends TitledPane {
     private String accountNum;
     boolean isSeen = false;
@@ -17,7 +19,14 @@ public class AccountsInfoPane extends TitledPane {
         {
             if (!isSeen)
             {
-                String answer = ms.send(accountNum);
+                String answer = null;
+                try
+                {
+                    answer = ms.send(accountNum);
+                } catch (IOException ioException)
+                {
+                    ioException.printStackTrace();
+                }
                 TableView<TransactionClient> tableView = getTable(answer);
                 getChildren().add(tableView);
                 isSeen = true;

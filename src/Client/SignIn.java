@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class SignIn extends Scene {
     private static final AnchorPane root = new AnchorPane();
@@ -59,7 +60,14 @@ public class SignIn extends Scene {
         button.setOnAction(e -> {
             if (codeM.checkValid())
             {
-                String string = ms.send("up " + codeM.getText() + " " + pass.getText());
+                String string = null;
+                try
+                {
+                    string = ms.send("up " + codeM.getText() + " " + pass.getText());
+                } catch (IOException ioException)
+                {
+                    ioException.printStackTrace();
+                }
                 if (string.equals("true"))
                 {
                     try

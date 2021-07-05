@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -125,7 +126,14 @@ public class SignUp extends Scene {
 
                 string += f.getText() + " ";
             }
-            String result = ms.send(string);
+            String result = null;
+            try
+            {
+                result = ms.send(string);
+            } catch (IOException ioException)
+            {
+                ioException.printStackTrace();
+            }
             if (result.equals("true"))
             {
                 try

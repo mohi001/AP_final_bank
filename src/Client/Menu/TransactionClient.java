@@ -64,7 +64,7 @@ public class TransactionClient {
     public static ObservableList<TransactionClient> getTransLise(String s)
     {
         ObservableList<TransactionClient> list = FXCollections.observableArrayList();
-        for (String s1 : s.split("\\r?\\n"))
+        for (String s1 : s.split("\\n"))
         {
             list.add(new TransactionClient(s1));
         }

@@ -13,7 +13,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,7 +25,7 @@ public class PayBillS extends Scene {
     private Messenger ms;
 
     //    public PayBills(Stage stage, Messenger messenger) throws FileNotFoundException {
-    public PayBillS(Stage stage) throws FileNotFoundException {
+    public PayBillS(Stage stage) throws IOException {
         super(root, 900, 700);
 //        ms = messenger;
 
@@ -119,7 +119,7 @@ public class PayBillS extends Scene {
         });
     }
 
-    private MenuButton getaccountM(Messenger ms, InUpField tf)
+    private MenuButton getaccountM(Messenger ms, InUpField tf) throws IOException
     {
         MenuButton m = new MenuButton("account aliases");
         String answer = ms.send("MAliasL");
