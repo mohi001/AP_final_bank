@@ -20,15 +20,17 @@ public class InUpField extends HBox {
     double posX;
     double posY;
     boolean isPass;
+
     public InUpField(String imageAddress, String promText, ValidAble validation, String notValid,
-                     double posX, double posY, boolean isPass) throws FileNotFoundException {
+                     double posX, double posY, boolean isPass) throws FileNotFoundException
+    {
         this.imageAddress = imageAddress;
         this.promText = promText;
         this.validation = validation;
         this.notValid = notValid;
         this.posX = posX;
         this.posY = posY;
-        FileInputStream in  = new FileInputStream(imageAddress);
+        FileInputStream in = new FileInputStream(imageAddress);
         ImageView mv = new ImageView(new Image(in));
         mv.setFitHeight(50);
         mv.setFitWidth(50);
@@ -38,7 +40,7 @@ public class InUpField extends HBox {
         else
             textField = new TextField();
         textField.setPromptText(promText);
-        textField.setPrefSize(400,50);
+        textField.setPrefSize(400, 50);
         getChildren().add(textField);
 
         notVL = new Label();
@@ -47,10 +49,12 @@ public class InUpField extends HBox {
         setTranslateX(posX);
         setTranslateY(posY);
     }
+
     private boolean isValid()
     {
         return validation.isValid(textField.getText());
     }
+
     public boolean checkValid()
     {
         if (isValid())
@@ -63,6 +67,19 @@ public class InUpField extends HBox {
             return false;
         }
     }
+
+    public static InUpField getPass() throws FileNotFoundException
+    {
+        InUpField pass = new InUpField("src/Client/Resources/sign_in.png", "pleas inter password", new ValidAble() {
+            @Override
+            public boolean isValid(String s) {
+                return true;
+            }
+        }, "", 0, 0, true
+        );
+        return pass;
+    }
+
 
     public String getText()
     {
