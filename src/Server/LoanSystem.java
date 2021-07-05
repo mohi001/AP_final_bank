@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class LoanSystem extends Thread implements Serializable {
     private ArrayList<User> users ;
-    private ArrayList<Loan> loans ;
 
     public LoanSystem(ArrayList<User>users){
         this.users = users ;

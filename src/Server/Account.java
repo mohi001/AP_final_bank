@@ -10,7 +10,6 @@ public class Account implements Serializable {
     private ArrayList<Transaction>transactions ;
     private double balance ;
     private String alias ;
-    private ArrayList<AliasAccount> list ;
     private Loan loan ;
 
     public Account(AccountType accountType, String password , double balance) {
@@ -19,7 +18,6 @@ public class Account implements Serializable {
         accountNumber = setAccountNumber() ;
         transactions = new ArrayList<>() ;
         this.balance = balance ;
-        list = new ArrayList<>() ;
         loan = null ;
         alias = null ;
     }
@@ -61,10 +59,6 @@ public class Account implements Serializable {
         this.alias = alias;
     }
 
-    public String getAccountType() {
-        return accountType.toString();
-    }
-
     public ArrayList<Transaction> getTransactions() {
         return transactions;
     }
@@ -91,13 +85,11 @@ public class Account implements Serializable {
         transactions.add(new Transaction(number , balance , TransactionType.RECEIVER)) ;
     }
 
-    public boolean payBill(double balance){
+    public void payBill(double balance){
         if (getBalance() >= balance){
             this.balance -= balance ;
             transactions.add(new Transaction(accountNumber , balance , TransactionType.PAY_BILL)) ;
-            return true ;
         }
-        return false ;
     }
 
     public void payLoan(double balance){
@@ -110,7 +102,7 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        String s = Integer.toString(accountNumber) + " " + accountType.toString() + " " + balance + " " ;
+        String s = accountNumber + " " + accountType.toString() + " " + balance + " " ;
         if (alias == null)
             s += -1 ;
         else s += alias ;
