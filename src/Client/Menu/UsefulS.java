@@ -1,5 +1,6 @@
 package Client.Menu;
 
+import Client.ButtonScene;
 import Client.InUpField;
 import Client.Messenger;
 import Client.ValidAble;
@@ -8,32 +9,27 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.io.IOException;
 
 public class UsefulS extends Scene {
-    private static final GridPane root = new GridPane();
-    String message = "";
-    String number;
-    String name;
-    private Messenger ms;
+    private static final VBox root = new VBox();
 
-    //    public UsefulS(Stage stage, Messenger messenger) throws FileNotFoundException {
-    public UsefulS(Stage stage) throws FileNotFoundException {
+    public UsefulS(Stage stage, Messenger ms) throws IOException {
         super(root, 900, 700);
-//        ms = messenger;
+        root.setSpacing(90);
+        root.setAlignment(Pos.BASELINE_CENTER);
+        root.setBackground(new Background(new BackgroundFill
+                (Color.YELLOW, new CornerRadii(1),
+                        new Insets(0.0, 0.0, 0.0, 0.0))));
 
-        root.setAlignment(Pos.CENTER);
-        root.setPadding(new Insets(50));
-        root.setHgap(30);
-        root.setVgap(50);
-
-//        MenuButton mB = getKindM();
-
-        InUpField code = new InUpField("src/Client/Resources/sign_in.png", "pleas inter requested money ",
+        InUpField code = new InUpField("src/Client/Resources/sign_in.png", "account number",
                 new ValidAble() {
                     @Override
                     public boolean isValid(String s) {
@@ -48,46 +44,45 @@ public class UsefulS extends Scene {
                     }
                 }, "pleas inter only numbers", 0, 0, false
         );
-
-        InUpField name = new InUpField("src/Client/Resources/sign_in.png", "pleas inter duration in month",
+        code.setTranslateX(200);
+        InUpField name = new InUpField("src/Client/Resources/sign_in.png",
+                "alias name",
                 new ValidAble() {
                     @Override
                     public boolean isValid(String s) {
-                        return s.split("\\s").length == 1;
+                        return true;
                     }
-                }, "don't inter space", 0, 0, false
-
-        );
-
-        Label answer = new Label("pleas fill the fields\n" +
-                "inter account number or chose from aliases");
-        answer.setWrapText(true);
-        Button req = new Button("request loan");
-        req.setTranslateX(100);
-        answer.setTranslateY(-70);
-        root.add(code, 0, 1);
-        root.add(name, 0, 2);
-        root.add(req, 0, 4);
-        root.add(answer, 1, 2);
-
-        ArrayList<InUpField> fields = new ArrayList<>();
-        fields.add(code);
-        fields.add(name);
-
-        req.setOnAction(e -> {
-            message = "bill" + " ";
-            for (InUpField inUp : fields)
+                }, "please inter valid code",
+                0, 0, false);
+        name.setTranslateX(200);
+        Label label = new Label("please inter account to add alias");
+        label.setWrapText(true);
+        label.setStyle("-fx-font-size: 30");
+        Button add = new Button("add alias");
+        add.setMinSize(100, 50);
+        add.setTranslateY(-50);
+        ButtonScene back = ButtonScene.getBackButton(ms, stage);
+        back.setTranslateX(-400);
+        back.setTranslateY(-48);
+        add.setOnAction(e -> {
+            String answer = "";
+            try
             {
-                if (!inUp.checkValid())
-                {
-                    return;
-                }
-                message += inUp.getText() + " ";
-                //TODO
+                answer = ms.sendNS("UAliasAdd", code.getText(),
+                        name.getText());
+            } catch (IOException ioException)
+            {
+                ioException.printStackTrace();
             }
-            System.out.println(message);
-//            ms.send(message);
+            if (answer.equals("true"))
+            {
+                label.setText("alias added succefully");
+            } else
+            {
+                label.setText("faild to do oparatin");
+            }
         });
+        root.getChildren().addAll(back, label, code, name, add);
     }
-
 }
+

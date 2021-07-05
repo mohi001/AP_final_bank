@@ -21,6 +21,7 @@ public class Messenger {
             out.writeUTF(s1);
             System.out.println(s1);
         }
+        System.out.println("}");
         return in.readUTF();
     }
 
@@ -32,6 +33,7 @@ public class Messenger {
             out.writeUTF(s1);
             System.out.println(s1);
         }
+        System.out.println("}");
         return in.readUTF();
     }
 }
