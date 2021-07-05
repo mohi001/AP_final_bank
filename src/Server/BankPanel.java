@@ -64,7 +64,7 @@ public class BankPanel implements Runnable{
                         transfer();
                         break;
                     case "trans":
-                        getTraction();
+                        getTransaction();
                         break;
                     case "UAliasAdd":
                         listAdd();
@@ -180,7 +180,7 @@ public class BankPanel implements Runnable{
         String password = inputStream.readUTF() ;
         Account receiver = searchAccount(Integer.parseInt(inputStream.readUTF())) ;
         double balance = Double.parseDouble(inputStream.readUTF()) ;
-        if (sender == null || receiver == null || !sender.getPassword().equals(password) || balance > sender.getBalance())
+        if (sender == null || receiver == null || !sender.getPassword().equals(password) || balance > sender.getBalance() || !userAccess(sender))
             outputStream.writeUTF("false");
         else {
             outputStream.writeUTF("true");
@@ -189,9 +189,9 @@ public class BankPanel implements Runnable{
         }
     }
 
-    private void getTraction() throws IOException {
+    private void getTransaction() throws IOException {
         Account account = searchAccount(Integer.parseInt(inputStream.readUTF())) ;
-        if (account == null)
+        if (account == null || userAccess(account))
             outputStream.writeBoolean(false);
         else {
             outputStream.writeBoolean(true);
@@ -210,7 +210,7 @@ public class BankPanel implements Runnable{
         String alias = inputStream.readUTF();
         int accountNumber = Integer.parseInt(inputStream.readUTF());
         Account account = searchAccount(accountNumber) ;
-        if (account == null)
+        if (account == null || !userAccess(account))
             outputStream.writeUTF("false");
         else{
             outputStream.writeUTF("true");
@@ -233,7 +233,7 @@ public class BankPanel implements Runnable{
         Account sender = searchAccount(Integer.parseInt(inputStream.readUTF())) ;
         String password = inputStream.readUTF() ;
         double balance = 1 ;
-        if (sender == null || !sender.getPassword().equals(password) || balance > sender.getBalance())
+        if (sender == null || !sender.getPassword().equals(password) || balance > sender.getBalance() || !userAccess(sender))
             outputStream.writeUTF("false");
         else {
             outputStream.writeUTF("true");
@@ -245,7 +245,7 @@ public class BankPanel implements Runnable{
         double balance = Double.parseDouble(inputStream.readUTF()) ;
         int numberOfMonths = Integer.parseInt(inputStream.readUTF()) ;
         Account account = searchAccount(Integer.parseInt(inputStream.readUTF())) ;
-        if (account == null)
+        if (account == null || !userAccess(account))
             outputStream.writeUTF("false");
         else {
             boolean b = account.newLoan(balance, numberOfMonths);
@@ -284,12 +284,20 @@ public class BankPanel implements Runnable{
      private void closeAccount() throws IOException {
         Account account = searchAccount(Integer.parseInt(inputStream.readUTF()));
         String password = inputStream.readUTF();
-        if (account == null || !password.equals(account.getPassword()))
+        if (account == null || !password.equals(account.getPassword()) || !userAccess(account))
             outputStream.writeUTF("false");
         else {
             user.getMyAccounts().remove(account) ;
             allAccounts.remove(account) ;
             outputStream.writeUTF("true");
         }
+     }
+
+     private boolean userAccess(Account account){
+         for (int i = 0; i < user.getMyAccounts().size(); i++) {
+             if (account == user.getMyAccounts().get(i))
+                 return true ;
+         }
+         return false ;
      }
 }
