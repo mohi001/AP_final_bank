@@ -3,8 +3,6 @@ package Client.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 
-import java.util.Arrays;
-
 public class ChoseAccount extends MenuButton {
     private String accountNum;
 
@@ -14,7 +12,6 @@ public class ChoseAccount extends MenuButton {
         setStyle("-fx-font-size: 25px");
         setPrefSize(400, 40);
         String[] accounts = string.split("\\n");
-        System.out.println(Arrays.toString(accounts));
         for (String s : accounts)
         {
             MenuItem menuItem = new MenuItem();

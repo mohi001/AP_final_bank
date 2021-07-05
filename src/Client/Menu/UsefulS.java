@@ -53,11 +53,7 @@ public class UsefulS extends Scene {
                 new ValidAble() {
                     @Override
                     public boolean isValid(String s) {
-                        if (s.split("\\s").length == 1)
-                        {
-                            return true;
-                        }
-                        return false;
+                        return s.split("\\s").length == 1;
                     }
                 }, "don't inter space", 0, 0, false
 
@@ -65,7 +61,7 @@ public class UsefulS extends Scene {
 
         Label answer = new Label("pleas fill the fields\n" +
                 "inter account number or chose from aliases");
-
+        answer.setWrapText(true);
         Button req = new Button("request loan");
         req.setTranslateX(100);
         answer.setTranslateY(-70);

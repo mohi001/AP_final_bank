@@ -28,10 +28,11 @@ public class CloseAccountS extends Scene {
                 (Color.ORANGERED, new CornerRadii(1),
                         new Insets(0.0, 0.0, 0.0, 0.0))));
         ChoseAccount choseAccount = new ChoseAccount(ms.send("accounts"));
-        
+
         InUpField pass = InUpField.getPass();
         pass.setTranslateX(200);
         Label label = new Label("please chose account and enter password");
+        label.setWrapText(true);
         label.setStyle("-fx-font-size: 30");
         Button close = new Button("close account");
         close.setMinSize(100, 50);

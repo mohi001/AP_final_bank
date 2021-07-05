@@ -64,6 +64,7 @@ public class NewAccount extends Scene {
         );
 
         Label answer = new Label("pleas fill \nthe fields");
+        answer.setWrapText(true);
         answer.setStyle("-fx-font-size: 20");
         answer.setTranslateX(-50);
         Button creat = new Button("creat new Account");

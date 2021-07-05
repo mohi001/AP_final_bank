@@ -40,6 +40,7 @@ public class ManageS extends Scene {
                 0, 0, false);
         name.setTranslateX(200);
         Label label = new Label("please chose account to change or add alias");
+        label.setWrapText(true);
         label.setStyle("-fx-font-size: 30");
         Button add = new Button("add alias");
         add.setMinSize(100, 50);

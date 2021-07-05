@@ -15,18 +15,22 @@ public class Messenger {
 
     public String send(String s) throws IOException
     {
+        System.out.println("send:");
         for (String s1 : s.split("\\s"))
         {
             out.writeUTF(s1);
+            System.out.println(s1);
         }
         return in.readUTF();
     }
 
     public String sendNS(String... s) throws IOException
     {
+        System.out.println("send:");
         for (String s1 : s)
         {
             out.writeUTF(s1);
+            System.out.println(s1);
         }
         return in.readUTF();
     }
