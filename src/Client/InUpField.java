@@ -45,6 +45,7 @@ public class InUpField extends HBox {
 
         notVL = new Label();
         notVL.setPrefSize(200, 50);
+        notVL.setStyle("-fx-text-fill: red");
         getChildren().add(notVL);
         setTranslateX(posX);
         setTranslateY(posY);
@@ -88,5 +89,10 @@ public class InUpField extends HBox {
 
     public void setText(String s) {
         textField.setText(s);
+    }
+
+    public void setNotVL(String s)
+    {
+        notVL.setText(s);
     }
 }

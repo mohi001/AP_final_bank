@@ -1,5 +1,6 @@
 package Client;
 
+import Client.Menu.Menu;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class EmailConfS extends Scene {
@@ -43,8 +45,9 @@ public class EmailConfS extends Scene {
         code.setTranslateX(200);
 
         Label label = new Label("please chek your email \nand inter code");
-        label.setWrapText(true);
+        label.setWrapText(false);
         label.setStyle("-fx-font-size: 30");
+        label.setPrefSize(400, 100);
         Button conf = new Button("add alias");
         conf.setMinSize(100, 50);
         conf.setTranslateY(-50);
@@ -63,25 +66,27 @@ public class EmailConfS extends Scene {
         back.setTranslateX(-400);
         back.setTranslateY(-48);
         conf.setOnAction(e -> {
-            /*
             String answer = "";
             try
             {
-                answer = ms.sendNS("UAliasAdd", code.getText(),
-                        name.getText());
+                answer = ms.sendNS(code.getText());
             } catch (IOException ioException)
             {
                 ioException.printStackTrace();
             }
             if (answer.equals("true"))
             {
-                label.setText("alias added successfully");
+                try
+                {
+                    stage.setScene(new Menu(stage, ms));
+                } catch (FileNotFoundException fileNotFoundException)
+                {
+                    fileNotFoundException.printStackTrace();
+                }
             } else
             {
-                label.setText("failed to do operation");
+                label.setText("wrong code");
             }
-
-             */
         });
         root.getChildren().addAll(back, label, code, conf);
     }

@@ -1,7 +1,6 @@
 package Client;
 
 
-import Client.Menu.Menu;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -35,11 +34,7 @@ public class SignUp extends Scene {
                 new ValidAble() {
                     @Override
                     public boolean isValid(String s) {
-                        if (s.split("\\s").length == 2)
-                        {
-                            return true;
-                        }
-                        return false;
+                        return s.split("\\s").length == 2;
                     }
                 }, "please inter valid Name",
                 width / 2 - 250, height / 2 - 200,false);
@@ -120,7 +115,6 @@ public class SignUp extends Scene {
             {
                 if (!f.checkValid())
                 {
-                    //TODO
                     return;
                 }
 
@@ -138,14 +132,14 @@ public class SignUp extends Scene {
             {
                 try
                 {
-                    stage.setScene(new Menu(stage, ms));
-                } catch (FileNotFoundException fileNotFoundException)
+                    stage.setScene(new EmailConfS(stage, ms));
+                } catch (IOException fileNotFoundException)
                 {
                     fileNotFoundException.printStackTrace();
                 }
             } else
             {
-                //TODO
+                codeM.setNotVL("not a valid email or address");
             }
         });
         root.getChildren().addAll(button);
