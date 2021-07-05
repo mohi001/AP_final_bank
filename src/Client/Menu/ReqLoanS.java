@@ -35,7 +35,7 @@ public class ReqLoanS extends Scene {
                 (Color.INDIANRED, new CornerRadii(1),
                         new Insets(0.0, 0.0, 0.0, 0.0))));
 
-        InUpField money = new InUpField("src/Client/Resources/sign_in.png", "pleas inter requested money ",
+        InUpField money = new InUpField("src/Client/Resources/money.png", "pleas inter requested money ",
                 new ValidAble() {
                     @Override
                     public boolean isValid(String s) {
@@ -51,7 +51,7 @@ public class ReqLoanS extends Scene {
                 }, "pleas inter only numbers", 0, 0, false
         );
 
-        InUpField duration = new InUpField("src/Client/Resources/sign_in.png", "pleas inter duration in month",
+        InUpField duration = new InUpField("src/Client/Resources/list.png", "pleas inter duration in month",
                 new ValidAble() {
                     @Override
                     public boolean isValid(String s) {

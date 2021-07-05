@@ -30,6 +30,13 @@ public class InUpField extends HBox {
         this.notValid = notValid;
         this.posX = posX;
         this.posY = posY;
+        try
+        {
+            FileInputStream in = new FileInputStream(imageAddress);
+        } catch (FileNotFoundException e)
+        {
+            FileInputStream in = new FileInputStream("src/Client/Resources/acc.png");
+        }
         FileInputStream in = new FileInputStream(imageAddress);
         ImageView mv = new ImageView(new Image(in));
         mv.setFitHeight(50);
@@ -71,7 +78,7 @@ public class InUpField extends HBox {
 
     public static InUpField getPass() throws FileNotFoundException
     {
-        InUpField pass = new InUpField("src/Client/Resources/sign_in.png", "pleas inter password", new ValidAble() {
+        InUpField pass = new InUpField("src/Client/Resources/key.png", "pleas inter password", new ValidAble() {
             @Override
             public boolean isValid(String s) {
                 return true;

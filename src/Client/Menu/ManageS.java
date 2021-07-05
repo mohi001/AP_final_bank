@@ -29,7 +29,7 @@ public class ManageS extends Scene {
                 (Color.YELLOW, new CornerRadii(1),
                         new Insets(0.0, 0.0, 0.0, 0.0))));
         ChoseAccount choseAccount = new ChoseAccount(ms.send("accounts"));
-        InUpField name = new InUpField("src/Client/Resources/sign_in.png",
+        InUpField name = new InUpField("src/Client/Resources/cart.png",
                 "alias name",
                 new ValidAble() {
                     @Override

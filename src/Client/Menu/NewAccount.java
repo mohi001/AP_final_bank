@@ -40,7 +40,7 @@ public class NewAccount extends Scene {
 
         MenuButton mB = getKindM();
 
-        InUpField initMoney = new InUpField("src/Client/Resources/sign_in.png", "pleas inter initial money ", new ValidAble() {
+        InUpField initMoney = new InUpField("src/Client/Resources/money.png", "pleas inter initial money ", new ValidAble() {
             @Override
             public boolean isValid(String s) {
                 try
@@ -55,13 +55,7 @@ public class NewAccount extends Scene {
         }, "pleas inter only numbers", 0, 0, false
         );
 
-        InUpField pass = new InUpField("src/Client/Resources/sign_in.png", "pleas inter password", new ValidAble() {
-            @Override
-            public boolean isValid(String s) {
-                return true;
-            }
-        }, "", 0, 0, true
-        );
+        InUpField pass = InUpField.getPass();
 
         Label answer = new Label("pleas fill \nthe fields");
         answer.setWrapText(true);

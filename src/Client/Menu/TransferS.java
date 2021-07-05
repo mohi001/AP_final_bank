@@ -47,7 +47,7 @@ public class TransferS extends Scene {
         ChoseAccount accountFrom = new ChoseAccount(ms.send("accounts"));
         accountFrom.setPrefSize(400, 50);
         InUpField pass = InUpField.getPass();
-        InUpField money = new InUpField("src/Client/Resources/sign_in.png", "pleas inter requested money ",
+        InUpField money = new InUpField("src/Client/Resources/money.png", "pleas inter requested money ",
                 new ValidAble() {
                     @Override
                     public boolean isValid(String s) {
@@ -63,7 +63,7 @@ public class TransferS extends Scene {
                 }, "pleas inter only numbers", 0, 0, false
         );
 
-        InUpField accountTo = new InUpField("src/Client/Resources/sign_in.png", "pleas inter destination",
+        InUpField accountTo = new InUpField("src/Client/Resources/acc.png", "pleas inter destination",
                 new ValidAble() {
                     @Override
                     public boolean isValid(String s) {

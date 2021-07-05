@@ -13,7 +13,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class EmailConfS extends Scene {
@@ -27,7 +26,7 @@ public class EmailConfS extends Scene {
                 (Color.YELLOW, new CornerRadii(1),
                         new Insets(0.0, 0.0, 0.0, 0.0))));
 
-        InUpField code = new InUpField("src/Client/Resources/sign_in.png", "account number",
+        InUpField code = new InUpField("src/Client/Resources/acc.png", "account number",
                 new ValidAble() {
                     @Override
                     public boolean isValid(String s) {
@@ -79,7 +78,7 @@ public class EmailConfS extends Scene {
                 try
                 {
                     stage.setScene(new Menu(stage, ms));
-                } catch (FileNotFoundException fileNotFoundException)
+                } catch (IOException fileNotFoundException)
                 {
                     fileNotFoundException.printStackTrace();
                 }
