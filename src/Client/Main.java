@@ -17,8 +17,8 @@ public class Main extends Application {
             DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
             DataInputStream inputStream = new DataInputStream(socket.getInputStream());
             Messenger messenger = new Messenger(outputStream, inputStream);
-            stage.setScene(new EmailConfS(stage, messenger));
-            stage.setTitle("|");
+            stage.setScene(new First(stage, messenger));
+            stage.setTitle("bank");
             stage.show();
         } catch (Exception e)
         {

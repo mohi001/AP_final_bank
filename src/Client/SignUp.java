@@ -59,7 +59,7 @@ public class SignUp extends Scene {
                 width / 2 - 250, height / 2 - 130, false);
         InUpField pass = InUpField.getPass();
 //TODO
-        InUpField phoneNumber = new InUpField("src/Client/Resources/sign_in.png",
+        InUpField phoneNumber = new InUpField("src/Client/Resources/num.png",
                 "phone number",
                 new ValidAble() {
                     @Override
@@ -69,7 +69,7 @@ public class SignUp extends Scene {
                             Integer.parseInt(s);
                             if (s.length() == 11)
                                 return true;
-                        }catch (Exception e)
+                        } catch (Exception e)
                         {
                             return false;
                         }
@@ -78,7 +78,7 @@ public class SignUp extends Scene {
                 }, "please inter valid phone number",
                 width / 2 - 250, height / 2 + 10,false);
         //TODO
-        InUpField email = new InUpField("src/Client/Resources/sign_in.png",
+        InUpField email = new InUpField("src/Client/Resources/email.png",
                 "email",
                 new ValidAble() {
                     @Override

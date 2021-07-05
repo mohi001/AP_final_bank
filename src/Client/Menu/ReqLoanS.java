@@ -51,7 +51,7 @@ public class ReqLoanS extends Scene {
                 }, "pleas inter only numbers", 0, 0, false
         );
 
-        InUpField duration = new InUpField("src/Client/Resources/list.png", "pleas inter duration in month",
+        InUpField duration = new InUpField("src/Client/Resources/time.png", "pleas inter duration in month",
                 new ValidAble() {
                     @Override
                     public boolean isValid(String s) {
