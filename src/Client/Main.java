@@ -1,6 +1,5 @@
 package Client;
 
-import Client.Menu.UsefulS;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -16,7 +15,7 @@ public class Main extends Application {
         DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
         DataInputStream inputStream = new DataInputStream(socket.getInputStream());
         Messenger messenger = new Messenger(outputStream, inputStream);
-        stage.setScene(new UsefulS(stage, messenger));
+        stage.setScene(new EmailConfS(stage, messenger));
         stage.setTitle("|");
         stage.show();
     }
