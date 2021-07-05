@@ -84,8 +84,12 @@ public class BankPanel implements Runnable{
                     case "close":
                         closeAccount();
                         break;
+                    case "name":
+                        getEmailName();
+                        break;
                 }
             }
+            outputStream.writeUTF("true");
         }catch (IOException e){
             System.out.println(e.getMessage());
         }
@@ -99,8 +103,7 @@ public class BankPanel implements Runnable{
             outputStream.writeUTF("false");
         else {
             user = temp;
-            String s = user.getName() + " " + user.getEmail() ;
-            outputStream.writeUTF(s);
+            outputStream.writeUTF("true") ;
         }
     }
 
@@ -111,7 +114,7 @@ public class BankPanel implements Runnable{
         String phone = inputStream.readUTF() ;
         String email = inputStream.readUTF() ;
         User temp = searchUser(identity) ;
-        if (temp == null){
+        if (temp == null && verificationCode(email)){
             user = new User(identity , email , password , phone , name) ;
             users.add(user) ;
             outputStream.writeUTF("true");
@@ -119,6 +122,23 @@ public class BankPanel implements Runnable{
         else{
             outputStream.writeUTF("false");
         }
+    }
+
+    private boolean verificationCode(String email) throws IOException {
+        SendMail sendMail = new SendMail() ;
+        int code = sendMail.send(email) ;
+        String s = inputStream.readUTF() ;
+        while (!s.equals("exit")){
+            int clientCode = Integer.parseInt(s) ;
+            if (clientCode == code){
+                outputStream.writeUTF("true");
+                return true ;
+            }
+            else
+                outputStream.writeUTF("false");
+            s = inputStream.readUTF() ;
+        }
+        return false ;
     }
 
     private void newAccount() throws IOException {
@@ -299,5 +319,10 @@ public class BankPanel implements Runnable{
                  return true ;
          }
          return false ;
+     }
+
+     private void getEmailName() throws IOException {
+        String s = user.getName() + " " + user.getEmail() ;
+        outputStream.writeUTF(s);
      }
 }
