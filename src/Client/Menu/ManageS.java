@@ -53,7 +53,7 @@ public class ManageS extends Scene {
             try
             {
                 answer = ms.sendNS("MAliasAdd", choseAccount.getAccountNum(),
-                        add.getText());
+                        name.getText());
             } catch (IOException ioException)
             {
                 ioException.printStackTrace();
