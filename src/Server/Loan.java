@@ -5,14 +5,13 @@ import java.util.concurrent.TimeUnit;
 
 public class Loan extends Thread implements Serializable {
     private Account account ;
-    private double withdraw , balance ;
-    private int numberOfMonths , remainingMonths;
+    private double withdraw ;
+    private int remainingMonths;
     private boolean finish ;
 
     public Loan(Account account, double balance, int numberOfMonths) {
         this.account = account;
-        this.numberOfMonths = numberOfMonths;
-        withdraw = (double) (balance / numberOfMonths) ;
+        withdraw = (balance / numberOfMonths) ;
         remainingMonths = numberOfMonths ;
         finish = false ;
     }
@@ -35,20 +34,4 @@ public class Loan extends Thread implements Serializable {
     public boolean isFinish() {
         return finish;
     }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public int getNumberOfMonths() {
-        return numberOfMonths;
-    }
-
-    public int getRemainingMonths() {
-        return remainingMonths;
-    }
-}
+   }
