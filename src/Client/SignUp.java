@@ -35,7 +35,7 @@ public class SignUp extends Scene {
                 new ValidAble() {
                     @Override
                     public boolean isValid(String s) {
-                        return s.split("\\s").length == 2;
+                        return true;
                     }
                 }, "please inter valid Name",
                 width / 2 - 250, height / 2 - 200, false);
@@ -104,20 +104,19 @@ public class SignUp extends Scene {
         button.setTranslateY(height - 100);
         button.setOnAction(e ->
         {
-            String string = "up";
             for (InUpField f : fields)
             {
                 if (!f.checkValid())
                 {
                     return;
                 }
-
-                string += f.getText() + " ";
             }
             String result = null;
             try
             {
-                result = ms.send(string);
+                result = ms.sendNS("up", name.getText(),
+                        codeM.getText(), pass.getText(),
+                        phoneNumber.getText(), email.getText());
             } catch (IOException ioException)
             {
                 ioException.printStackTrace();

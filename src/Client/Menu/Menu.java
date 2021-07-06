@@ -1,8 +1,6 @@
 package Client.Menu;
 
 import Client.ButtonScene;
-import Client.First;
-import Client.Main;
 import Client.Messenger;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -11,6 +9,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
@@ -23,7 +22,8 @@ public class Menu extends Scene {
         up.setPrefSize(900, 200);
 
         ButtonScene exit = new ButtonScene(150, 150,
-                "src/Client/Resources/exit.png", new First(stage, ms), stage);
+                "src/Client/Resources/exit.png", stage);
+        /*
         exit.setOnAction(e ->
         {
             try
@@ -36,16 +36,18 @@ public class Menu extends Scene {
             Main.main(null);
         });
 
+//TODO
+         */
 
         Label label = new Label();
-        String[] emileName = ms.send("name").split("\\s");
-        label.setText(emileName[0] + "\n" + emileName[1]);
+        label.setText(ms.send("name"));
+        label.setStyle("-fx-font-size: 20");
         up.add(exit, 0, 0);
-        up.add(label, 0, 2);
+        up.add(label, 1, 0);
 
         GridPane MainMenu = new GridPane();
         root.setBackground(new Background(new BackgroundFill
-                (Color.DEEPSKYBLUE, new CornerRadii(1),
+                (Color.DARKGRAY, new CornerRadii(1),
                         new Insets(0.0, 0.0, 0.0, 0.0))));
         addButtons(MainMenu, stage, ms);
         root.getChildren().addAll(up, MainMenu);
@@ -54,29 +56,101 @@ public class Menu extends Scene {
     private static void addButtons(GridPane p, Stage stage, Messenger ms) throws IOException
     {
         ButtonScene newAccount = new ButtonScene(150, 150,
-                "src/Client/Resources/newacc.png", new NewAccount(stage, ms), stage);
+                "src/Client/Resources/newacc.png", stage);
+        newAccount.setOnAction(e -> {
+            try
+            {
+                stage.setScene(new NewAccount(stage, ms));
+            } catch (FileNotFoundException fileNotFoundException)
+            {
+                fileNotFoundException.printStackTrace();
+            }
+        });
 
         ButtonScene info = new ButtonScene(150, 150,
-                "src/Client/Resources/info.png", new InfoS(stage, ms), stage);
+                "src/Client/Resources/info.png", stage);
+        info.setOnAction(e -> {
+            try
+            {
+                stage.setScene(new InfoS(stage, ms));
+            } catch (IOException ioException)
+            {
+                ioException.printStackTrace();
+            }
+        });
 
 
         ButtonScene manage = new ButtonScene(150, 150,
-                "src/Client/Resources/add_my_alias.png", new ManageS(stage, ms), stage);
+                "src/Client/Resources/add_my_alias.png", stage);
+        manage.setOnAction(e -> {
+            try
+            {
+                stage.setScene(new ManageS(stage, ms));
+            } catch (IOException ioException)
+            {
+                ioException.printStackTrace();
+            }
+        });
 
         ButtonScene important = new ButtonScene(150, 150,
-                "src/Client/Resources/add_useful_alias.png", new UsefulS(stage, ms), stage);
+                "src/Client/Resources/add_useful_alias.png", stage);
+        important.setOnAction(e -> {
+            try
+            {
+                stage.setScene(new UsefulS(stage, ms));
+            } catch (IOException ioException)
+            {
+                ioException.printStackTrace();
+            }
+        });
 
         ButtonScene transfer = new ButtonScene(150, 150,
-                "src/Client/Resources/transfer", new TransferS(stage, ms), stage);
+                "src/Client/Resources/transfer.png", stage);
+        transfer.setOnAction(e -> {
+            try
+            {
+                stage.setScene(new TransferS(stage, ms));
+            } catch (IOException ioException)
+            {
+                ioException.printStackTrace();
+            }
+        });
 
         ButtonScene payBill = new ButtonScene(150, 150,
-                "src/Client/Resources/bill.png", new PayBillS(stage, ms), stage);
+                "src/Client/Resources/bill.png", stage);
+        payBill.setOnAction(e -> {
+            try
+            {
+                stage.setScene(new PayBillS(stage, ms));
+            } catch (IOException ioException)
+            {
+                ioException.printStackTrace();
+            }
+        });
 
         ButtonScene reqLoan = new ButtonScene(150, 150,
-                "src/Client/Resources/loan", new ReqLoanS(stage, ms), stage);
+                "src/Client/Resources/loan.png", stage);
+        reqLoan.setOnAction(e -> {
+            try
+            {
+                stage.setScene(new ReqLoanS(stage, ms));
+            } catch (IOException ioException)
+            {
+                ioException.printStackTrace();
+            }
+        });
 
         ButtonScene closeAccount = new ButtonScene(150, 150,
-                "src/Client/Resources/delete.png", new CloseAccountS(stage, ms), stage);
+                "src/Client/Resources/delete.png", stage);
+        closeAccount.setOnAction(e -> {
+            try
+            {
+                stage.setScene(new CloseAccountS(stage, ms));
+            } catch (IOException ioException)
+            {
+                ioException.printStackTrace();
+            }
+        });
 
         p.setPadding(new Insets(75));
         p.setHgap(50);
