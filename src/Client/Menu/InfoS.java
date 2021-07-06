@@ -52,6 +52,7 @@ public class InfoS extends Scene {
 
     public void ref(Messenger ms) throws IOException
     {
+        accordion.getPanes().clear();
         String answer = ms.send("accounts");
         if (answer.length() > 1)
         {
