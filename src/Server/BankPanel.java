@@ -249,7 +249,7 @@ public class BankPanel implements Runnable {
 
     private void getTransaction() throws IOException {
         Account account = searchAccount(Integer.parseInt(inputStream.readUTF()));
-        if (account == null || userAccess(account))
+        if (account == null || !userAccess(account))
             outputStream.writeUTF("");
         else {
 
