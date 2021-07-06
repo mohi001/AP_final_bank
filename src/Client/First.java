@@ -39,7 +39,7 @@ public class First extends Scene {
             try
             {
                 if (SignUpS == null)
-                    SignUpS = new SignIn(stage, ms, this);
+                    SignUpS = new SignUp(stage, ms, this);
                 stage.setScene(SignUpS);
             } catch (FileNotFoundException fileNotFoundException)
             {

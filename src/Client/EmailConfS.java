@@ -48,7 +48,7 @@ public class EmailConfS extends Scene {
         label.setWrapText(false);
         label.setStyle("-fx-font-size: 30");
         label.setPrefSize(400, 100);
-        Button conf = new Button("add alias");
+        Button conf = new Button("confirm code");
         conf.setMinSize(100, 50);
         conf.setTranslateY(-50);
         setOnKeyPressed(e ->

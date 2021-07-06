@@ -46,10 +46,9 @@ public class SignIn extends Scene {
                 }, "please inter valid code",
                 width / 2 - 300, height / 2 - 100, false);
 
-
         PasswordField pass = new PasswordField();
         pass.setPrefSize(400, 50);
-        pass.setTranslateX(width / 2 - 200);
+        pass.setTranslateX(width / 2 - 250);
         pass.setTranslateY(height / 2);
         pass.setPromptText("password");
 
@@ -64,7 +63,7 @@ public class SignIn extends Scene {
                 String string = null;
                 try
                 {
-                    string = ms.send("up " + codeM.getText() + " " + pass.getText());
+                    string = ms.send("in " + codeM.getText() + " " + pass.getText());
                 } catch (IOException ioException)
                 {
                     ioException.printStackTrace();

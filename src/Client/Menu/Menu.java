@@ -51,6 +51,7 @@ public class Menu extends Scene {
         Label label = new Label();
         label.setText(ms.send("name"));
         label.setStyle("-fx-font-size: 20");
+        label.setTranslateX(500);
         up.add(exit, 0, 0);
         up.add(label, 1, 0);
 

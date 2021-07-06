@@ -64,6 +64,8 @@ public class SignUp extends Scene {
                 }, "please inter valid code(with 0)",
                 width / 2 - 250, height / 2 - 130, false);
         InUpField pass = InUpField.getPass();
+        pass.setTranslateX(width / 2 - 250);
+        pass.setTranslateY(height / 2 - 60);
 //TODO
         InUpField phoneNumber = new InUpField("src/Client/Resources/num.png",
                 "phone number",

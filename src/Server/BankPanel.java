@@ -1,16 +1,17 @@
 package Server;
 
-import javax.xml.crypto.Data;
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 
 public class BankPanel implements Runnable {
-    private Socket socket;
+    private final Socket socket;
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
     private User user;
-    private ArrayList<User> users;
+    private final ArrayList<User> users;
     private ArrayList<Account> allAccounts;
     private boolean adminMode;
 
@@ -152,7 +153,6 @@ public class BankPanel implements Runnable {
             if (verificationCode(email)) {
                 user = new User(identity, email, password, phone, name);
                 users.add(user);
-                outputStream.writeUTF("true");
             }
         } else {
             outputStream.writeUTF("false");
