@@ -1,5 +1,6 @@
 package Client;
 
+import Client.Menu.Menu;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -17,12 +18,13 @@ public class Main extends Application {
             DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
             DataInputStream inputStream = new DataInputStream(socket.getInputStream());
             Messenger messenger = new Messenger(outputStream, inputStream);
-            stage.setScene(new First(stage, messenger));
+            stage.setScene(new Menu(stage, messenger));
             stage.setTitle("bank");
             stage.show();
         } catch (Exception e)
         {
             e.printStackTrace();
+            System.out.println("catch");
             stage.setScene(new ErroS());
         }
     }

@@ -1,9 +1,12 @@
 package Client.Menu;
 
 import Client.ButtonScene;
+import Client.First;
+import Client.Main;
 import Client.Messenger;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -16,8 +19,30 @@ public class Menu extends Scene {
 
     public Menu(Stage stage, Messenger ms) throws IOException {
         super(root, 900, 700);
-        HBox up = new HBox();
+        GridPane up = new GridPane();
         up.setPrefSize(900, 200);
+
+        ButtonScene exit = new ButtonScene(150, 150,
+                "src/Client/Resources/exit.png", new First(stage, ms), stage);
+        exit.setOnAction(e ->
+        {
+            try
+            {
+                ms.sendNS("exit");
+            } catch (IOException ioException)
+            {
+                ioException.printStackTrace();
+            }
+            Main.main(null);
+        });
+
+
+        Label label = new Label();
+        String[] emileName = ms.send("name").split("\\s");
+        label.setText(emileName[0] + "\n" + emileName[1]);
+        up.add(exit, 0, 0);
+        up.add(label, 0, 2);
+
         GridPane MainMenu = new GridPane();
         root.setBackground(new Background(new BackgroundFill
                 (Color.DEEPSKYBLUE, new CornerRadii(1),

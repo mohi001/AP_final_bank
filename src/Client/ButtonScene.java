@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class ButtonScene extends Hyperlink {
     double sizeX;
@@ -29,9 +30,9 @@ public class ButtonScene extends Hyperlink {
         setOnAction(e -> stage.setScene(target));
     }
 
-    public static ButtonScene getBackButton(Messenger ms, Stage stage) throws FileNotFoundException
+    public static ButtonScene getBackButton(Messenger ms, Stage stage) throws IOException
     {
-        return new ButtonScene(50, 50, "src/Client/Resources/sign_in.png",
+        return new ButtonScene(50, 50, "src/Client/Resources/back.png",
                 new Menu(stage, ms), stage);
     }
 }

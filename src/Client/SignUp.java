@@ -23,11 +23,12 @@ public class SignUp extends Scene {
     private final double width = 900;
 
     public SignUp(Stage stage, Messenger ms) throws FileNotFoundException {
-
         super(root, 900, 700);
         root.setBackground(new Background(new BackgroundFill
                 (Color.BLUEVIOLET, new CornerRadii(1),
                         new Insets(0.0, 0.0, 0.0, 0.0))));
+
+        //TODO back
 
         InUpField name = new InUpField("src/Client/Resources/acc.png",
                 "name",
