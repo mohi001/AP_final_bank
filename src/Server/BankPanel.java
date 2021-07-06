@@ -230,6 +230,7 @@ public class BankPanel implements Runnable {
     }
 
     private void transfer() throws IOException {
+        double balance = Double.parseDouble(inputStream.readUTF());
         Account sender = searchAccount(Integer.parseInt(inputStream.readUTF()));
         String password;
         if (!adminMode)
@@ -237,7 +238,6 @@ public class BankPanel implements Runnable {
         else
             password = sender.getPassword();
         Account receiver = searchAccount(Integer.parseInt(inputStream.readUTF()));
-        double balance = Double.parseDouble(inputStream.readUTF());
         if (sender == null || receiver == null || !sender.getPassword().equals(password) || balance > sender.getBalance() || !userAccess(sender))
             outputStream.writeUTF("false");
         else {
