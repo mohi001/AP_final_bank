@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -20,7 +21,7 @@ import java.io.IOException;
 public class UsefulS extends Scene {
     private static final VBox root = new VBox();
 
-    public UsefulS(Stage stage, Messenger ms, Scene main) throws IOException {
+    public UsefulS(Stage stage, Messenger ms, Scene back) throws IOException {
         super(root, 900, 700);
         root.setSpacing(90);
         root.setAlignment(Pos.BASELINE_CENTER);
@@ -77,6 +78,13 @@ public class UsefulS extends Scene {
             } else
             {
                 label.setText("faild to do oparatin");
+            }
+        });
+        setOnKeyPressed(e ->
+        {
+            if (e.getCode() == KeyCode.ESCAPE)
+            {
+                stage.setScene(back);
             }
         });
         root.getChildren().addAll(label, code, name, add);
