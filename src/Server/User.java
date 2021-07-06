@@ -35,8 +35,20 @@ public class User implements Serializable {
         return password;
     }
 
-    public String getPhone() {
-        return phone;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void addMyAccount(Account account){
@@ -49,5 +61,10 @@ public class User implements Serializable {
 
     public ArrayList<Account> getMyAccounts() {
         return myAccounts;
+    }
+
+    @Override
+    public String toString() {
+        return name + " " + identityNumber+ " " + phone+ " " + email + "\n";
     }
 }
