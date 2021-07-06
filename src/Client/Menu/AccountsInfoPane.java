@@ -30,7 +30,7 @@ public class AccountsInfoPane extends TitledPane {
                 if (!answer.equals(""))
                 {
                     TableView<TransactionClient> tableView = getTable(answer);
-                    getChildren().add(tableView);
+                    setContent(tableView);
                 }
                 isSeen = true;
             }
@@ -92,7 +92,7 @@ public class AccountsInfoPane extends TitledPane {
 
         TableView<TransactionClient> table = new TableView<>();
         table.setItems(TransactionClient.getTransLise(string));
-        table.getColumns().addAll(date, hourAndMinute, AccountTo, balance);
+        table.getColumns().addAll(date, type, hourAndMinute, AccountTo, balance);
         return table;
     }
 }
