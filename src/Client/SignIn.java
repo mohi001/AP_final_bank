@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -20,12 +21,12 @@ public class SignIn extends Scene {
     private final double height = 700;
     private final double width = 900;
 
-    public SignIn(Stage stage, Messenger ms) throws FileNotFoundException {
-
+    public SignIn(Stage stage, Messenger ms, Scene back) throws FileNotFoundException {
         super(root, 900, 700);
         root.setBackground(new Background(new BackgroundFill
                 (Color.BLUEVIOLET, new CornerRadii(1),
                         new Insets(0.0, 0.0, 0.0, 0.0))));
+
 
         InUpField codeM = new InUpField("src/Client/Resources/acc.png",
                 "national code",
@@ -84,5 +85,18 @@ public class SignIn extends Scene {
             }
         });
         root.getChildren().addAll(codeM, button, pass);
+        setOnKeyPressed(e ->
+        {
+            if (e.getCode() == KeyCode.ESCAPE)
+            {
+                try
+                {
+                    stage.setScene(back);
+                } catch (Exception exception)
+                {
+                    exception.printStackTrace();
+                }
+            }
+        });
     }
 }

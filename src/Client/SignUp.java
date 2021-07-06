@@ -4,6 +4,7 @@ package Client;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -22,19 +23,24 @@ public class SignUp extends Scene {
     private final double height = 700;
     private final double width = 900;
 
-    public SignUp(Stage stage, Messenger ms) throws FileNotFoundException {
-
+    public SignUp(Stage stage, Messenger ms, Scene back) throws FileNotFoundException {
         super(root, 900, 700);
         root.setBackground(new Background(new BackgroundFill
                 (Color.BLUEVIOLET, new CornerRadii(1),
                         new Insets(0.0, 0.0, 0.0, 0.0))));
-
+        setOnKeyPressed(e ->
+        {
+            if (e.getCode() == KeyCode.ESCAPE)
+            {
+                stage.setScene(back);
+            }
+        });
         InUpField name = new InUpField("src/Client/Resources/acc.png",
                 "name",
                 new ValidAble() {
                     @Override
                     public boolean isValid(String s) {
-                        return s.split("\\s").length == 2;
+                        return true;
                     }
                 }, "please inter valid Name",
                 width / 2 - 250, height / 2 - 200, false);
@@ -59,7 +65,7 @@ public class SignUp extends Scene {
                 width / 2 - 250, height / 2 - 130, false);
         InUpField pass = InUpField.getPass();
 //TODO
-        InUpField phoneNumber = new InUpField("src/Client/Resources/sign_in.png",
+        InUpField phoneNumber = new InUpField("src/Client/Resources/num.png",
                 "phone number",
                 new ValidAble() {
                     @Override
@@ -69,7 +75,7 @@ public class SignUp extends Scene {
                             Integer.parseInt(s);
                             if (s.length() == 11)
                                 return true;
-                        }catch (Exception e)
+                        } catch (Exception e)
                         {
                             return false;
                         }
@@ -78,7 +84,7 @@ public class SignUp extends Scene {
                 }, "please inter valid phone number",
                 width / 2 - 250, height / 2 + 10,false);
         //TODO
-        InUpField email = new InUpField("src/Client/Resources/sign_in.png",
+        InUpField email = new InUpField("src/Client/Resources/email.png",
                 "email",
                 new ValidAble() {
                     @Override
@@ -103,20 +109,19 @@ public class SignUp extends Scene {
         button.setTranslateY(height - 100);
         button.setOnAction(e ->
         {
-            String string = "up";
             for (InUpField f : fields)
             {
                 if (!f.checkValid())
                 {
                     return;
                 }
-
-                string += f.getText() + " ";
             }
             String result = null;
             try
             {
-                result = ms.send(string);
+                result = ms.sendNS("up", name.getText(),
+                        codeM.getText(), pass.getText(),
+                        phoneNumber.getText(), email.getText());
             } catch (IOException ioException)
             {
                 ioException.printStackTrace();
@@ -125,7 +130,7 @@ public class SignUp extends Scene {
             {
                 try
                 {
-                    stage.setScene(new EmailConfS(stage, ms));
+                    stage.setScene(new EmailConfS(stage, ms, this));
                 } catch (IOException fileNotFoundException)
                 {
                     fileNotFoundException.printStackTrace();

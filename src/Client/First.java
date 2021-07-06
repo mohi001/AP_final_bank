@@ -19,9 +19,27 @@ public class First extends Scene {
     public First(Stage stage, Messenger ms) throws FileNotFoundException {
         super(root, 900, 700);
         ButtonScene signIn = new ButtonScene(100, 100,
-                "src/Client/Resources/sign_in.png", new SignIn(stage, ms), stage);
+                "src/Client/Resources/sign_in.png", stage);
+        signIn.setOnAction(e -> {
+            try
+            {
+                stage.setScene(new SignIn(stage, ms, this));
+            } catch (FileNotFoundException fileNotFoundException)
+            {
+                fileNotFoundException.printStackTrace();
+            }
+        });
         ButtonScene signUp = new ButtonScene(100, 100,
-                "src/Client/Resources/sign_up.png", new SignUp(stage, ms), stage);
+                "src/Client/Resources/sign_up.png", stage);
+        signUp.setOnAction(e -> {
+            try
+            {
+                stage.setScene(new SignUp(stage, ms, this));
+            } catch (FileNotFoundException fileNotFoundException)
+            {
+                fileNotFoundException.printStackTrace();
+            }
+        });
         root.getChildren().addAll(signIn, signUp);
         signIn.setTranslateY(height / 2);
         signUp.setTranslateY(height / 2);

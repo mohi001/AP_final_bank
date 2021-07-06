@@ -1,6 +1,5 @@
 package Client.Menu;
 
-import Client.ButtonScene;
 import Client.InUpField;
 import Client.Messenger;
 import Client.ValidAble;
@@ -9,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -25,7 +25,7 @@ public class PayBillS extends Scene {
     String number;
     String name;
 
-    public PayBillS(Stage stage, Messenger ms) throws IOException {
+    public PayBillS(Stage stage, Messenger ms, Scene back) throws IOException {
         super(root, 900, 700);
 
         root.setAlignment(Pos.CENTER);
@@ -86,10 +86,6 @@ public class PayBillS extends Scene {
         root.add(pass, 0, 3);
         root.add(req, 0, 4);
         root.add(answer, 1, 2);
-        ButtonScene back = ButtonScene.getBackButton(ms, stage);
-        root.add(back, 1, 3);
-        back.setTranslateX(-700);
-        back.setTranslateY(-400);
 
         ArrayList<InUpField> fields = new ArrayList<>();
         fields.add(serial);
@@ -117,6 +113,13 @@ public class PayBillS extends Scene {
             } else
             {
                 answer.setText("failed to\n pay bill");
+            }
+        });
+        setOnKeyPressed(e ->
+        {
+            if (e.getCode() == KeyCode.ESCAPE)
+            {
+                stage.setScene(back);
             }
         });
     }

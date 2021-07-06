@@ -1,6 +1,5 @@
 package Client.Menu;
 
-import Client.ButtonScene;
 import Client.InUpField;
 import Client.Messenger;
 import javafx.geometry.Insets;
@@ -8,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -20,7 +20,7 @@ import java.io.IOException;
 public class CloseAccountS extends Scene {
     private static final VBox root = new VBox();
 
-    public CloseAccountS(Stage stage, Messenger ms) throws IOException {
+    public CloseAccountS(Stage stage, Messenger ms, Scene back) throws IOException {
         super(root, 900, 700);
         root.setSpacing(90);
         root.setAlignment(Pos.BASELINE_CENTER);
@@ -37,9 +37,6 @@ public class CloseAccountS extends Scene {
         Button close = new Button("close account");
         close.setMinSize(100, 50);
         close.setTranslateY(-50);
-        ButtonScene back = ButtonScene.getBackButton(ms, stage);
-        back.setTranslateX(-400);
-        back.setTranslateY(-48);
         close.setOnAction(e -> {
             String answer = "";
             try
@@ -58,7 +55,14 @@ public class CloseAccountS extends Scene {
                 label.setText("pleas inter password correctly");
             }
         });
-        root.getChildren().addAll(back, label, choseAccount, pass, close);
+        root.getChildren().addAll(label, choseAccount, pass, close);
+        setOnKeyPressed(e ->
+        {
+            if (e.getCode() == KeyCode.ESCAPE)
+            {
+                stage.setScene(back);
+            }
+        });
     }
 }
 

@@ -1,6 +1,5 @@
 package Client.Menu;
 
-import Client.ButtonScene;
 import Client.InUpField;
 import Client.Messenger;
 import Client.ValidAble;
@@ -9,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -21,7 +21,7 @@ import java.io.IOException;
 public class ManageS extends Scene {
     private static final VBox root = new VBox();
 
-    public ManageS(Stage stage, Messenger ms) throws IOException {
+    public ManageS(Stage stage, Messenger ms, Scene back) throws IOException {
         super(root, 900, 700);
         root.setSpacing(90);
         root.setAlignment(Pos.BASELINE_CENTER);
@@ -45,9 +45,13 @@ public class ManageS extends Scene {
         Button add = new Button("add alias");
         add.setMinSize(100, 50);
         add.setTranslateY(-50);
-        ButtonScene back = ButtonScene.getBackButton(ms, stage);
-        back.setTranslateX(-400);
-        back.setTranslateY(-48);
+        setOnKeyPressed(e ->
+        {
+            if (e.getCode() == KeyCode.ESCAPE)
+            {
+                stage.setScene(back);
+            }
+        });
         add.setOnAction(e -> {
             String answer = "";
             try
@@ -66,7 +70,7 @@ public class ManageS extends Scene {
                 label.setText("faild to do oparatin");
             }
         });
-        root.getChildren().addAll(back, label, choseAccount, name, add);
+        root.getChildren().addAll(label, choseAccount, name, add);
     }
 }
 
