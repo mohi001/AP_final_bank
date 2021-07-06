@@ -56,18 +56,18 @@ public class ManageS extends Scene {
             String answer = "";
             try
             {
-                answer = ms.sendNS("MAliasAdd", choseAccount.getAccountNum(),
-                        name.getText());
+                answer = ms.sendNS("MAliasAdd", name.getText(),
+                        choseAccount.getAccountNum());
             } catch (IOException ioException)
             {
                 ioException.printStackTrace();
             }
             if (answer.equals("true"))
             {
-                label.setText("alias added succefully");
+                label.setText("alias added successfully");
             } else
             {
-                label.setText("faild to do oparatin");
+                label.setText("failed to do operation");
             }
         });
         root.getChildren().addAll(label, choseAccount, name, add);

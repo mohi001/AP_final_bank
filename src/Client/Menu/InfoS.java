@@ -32,9 +32,12 @@ public class InfoS extends Scene {
         root.getChildren().addAll(root2);
         Accordion accordion = new Accordion();
         String answer = ms.send("accounts");
-        for (String s : answer.split("\\n"))
+        if (answer.length() > 1)
         {
-            accordion.getPanes().add(new AccountsInfoPane(ms, s));
+            for (String s : answer.split("\\n"))
+            {
+                accordion.getPanes().add(new AccountsInfoPane(ms, s));
+            }
         }
         accordion.setPrefSize(800, 50);
         root2.setContent(accordion);

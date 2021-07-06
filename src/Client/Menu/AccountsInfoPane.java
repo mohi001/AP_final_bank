@@ -22,13 +22,16 @@ public class AccountsInfoPane extends TitledPane {
                 String answer = null;
                 try
                 {
-                    answer = ms.send(accountNum);
+                    answer = ms.sendNS("trans", accountNum);
                 } catch (IOException ioException)
                 {
                     ioException.printStackTrace();
                 }
-                TableView<TransactionClient> tableView = getTable(answer);
-                getChildren().add(tableView);
+                if (!answer.equals(""))
+                {
+                    TableView<TransactionClient> tableView = getTable(answer);
+                    getChildren().add(tableView);
+                }
                 isSeen = true;
             }
         });

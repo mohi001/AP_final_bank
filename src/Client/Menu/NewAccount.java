@@ -76,7 +76,6 @@ public class NewAccount extends Scene {
 
         creat.setOnAction(e -> {
             String response = "";
-
             try
             {
                 response = ms.sendNS("new", kind, pass.getText(), initMoney.getText());
@@ -84,12 +83,13 @@ public class NewAccount extends Scene {
             {
                 ioException.printStackTrace();
             }
-            if (response.equals("true"))
-            {
-                answer.setText("account created\n successfully");
-            } else
+            if (response.equals("false"))
             {
                 answer.setText("failed to creat \nnew account");
+            } else
+            {
+                answer.setText("account created\n successfully\n" + "your code:\n"
+                        + response);
             }
 
         });

@@ -79,7 +79,7 @@ public class SignIn extends Scene {
                     }
                 } else
                 {
-                    codeM.setNotVL("wrong email or address");
+                    codeM.setNotVL("wrong code  or password");
                 }
             }
         });

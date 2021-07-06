@@ -12,7 +12,7 @@ public class ChoseAccount extends MenuButton {
         setStyle("-fx-font-size: 25px");
         setPrefSize(400, 40);
         String[] accounts = string.split("\\n");
-        if (accounts[0].equals("\"\""))
+        if (accounts[0].length() < 2)
             setText("no account fund");
         else
         {

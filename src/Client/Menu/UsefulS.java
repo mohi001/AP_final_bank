@@ -66,8 +66,9 @@ public class UsefulS extends Scene {
             String answer = "";
             try
             {
-                answer = ms.sendNS("UAliasAdd", code.getText(),
-                        name.getText());
+                answer = ms.sendNS("UAliasAdd", name.getText(),
+                        code.getText()
+                );
             } catch (IOException ioException)
             {
                 ioException.printStackTrace();

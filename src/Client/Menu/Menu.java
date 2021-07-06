@@ -32,7 +32,6 @@ public class Menu extends Scene {
 
         ButtonScene exit = new ButtonScene(150, 150,
                 "src/Client/Resources/exit.png", stage);
-        /*
         exit.setOnAction(e ->
         {
             try
@@ -42,11 +41,11 @@ public class Menu extends Scene {
             {
                 ioException.printStackTrace();
             }
-            Main.main(null);
+            stage.close();
         });
 
 //TODO
-         */
+
 
         Label label = new Label();
         label.setText(ms.send("name"));
