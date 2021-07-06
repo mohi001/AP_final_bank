@@ -18,7 +18,7 @@ import java.io.IOException;
 public class InfoS extends Scene {
     private static final ScrollPane root2 = new ScrollPane();
     private static final VBox root = new VBox();
-
+    private final Accordion accordion;
     public InfoS(Stage stage, Messenger ms, Scene back) throws IOException {
         super(root, 900, 700);
         root2.setPadding(new Insets(50));
@@ -30,7 +30,7 @@ public class InfoS extends Scene {
                 (Color.DARKGREEN, new CornerRadii(1),
                         new Insets(0.0, 0.0, 0.0, 0.0))));
         root.getChildren().addAll(root2);
-        Accordion accordion = new Accordion();
+        accordion = new Accordion();
         String answer = ms.send("accounts");
         if (answer.length() > 1)
         {
@@ -48,6 +48,18 @@ public class InfoS extends Scene {
                 stage.setScene(back);
             }
         });
+    }
+
+    public void ref(Messenger ms) throws IOException
+    {
+        String answer = ms.send("accounts");
+        if (answer.length() > 1)
+        {
+            for (String s : answer.split("\\n"))
+            {
+                accordion.getPanes().add(new AccountsInfoPane(ms, s));
+            }
+        }
     }
     //TODO
     //test table view

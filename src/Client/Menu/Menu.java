@@ -89,6 +89,9 @@ public class Menu extends Scene {
                 if (infoS == null)
                 {
                     infoS = new InfoS(stage, ms, this);
+                } else
+                {
+                    ((InfoS) infoS).ref(ms);
                 }
                 stage.setScene(infoS);
             } catch (IOException ioException)
