@@ -15,6 +15,8 @@ public class First extends Scene {
     private static final AnchorPane root = new AnchorPane();
     private final double height = 700;
     private final double width = 900;
+    Scene SignUpS;
+    private Scene SignInS;
 
     public First(Stage stage, Messenger ms) throws FileNotFoundException {
         super(root, 900, 700);
@@ -23,7 +25,9 @@ public class First extends Scene {
         signIn.setOnAction(e -> {
             try
             {
-                stage.setScene(new SignIn(stage, ms, this));
+                if (SignInS == null)
+                    SignInS = new SignIn(stage, ms, this);
+                stage.setScene(SignInS);
             } catch (FileNotFoundException fileNotFoundException)
             {
                 fileNotFoundException.printStackTrace();
@@ -34,7 +38,9 @@ public class First extends Scene {
         signUp.setOnAction(e -> {
             try
             {
-                stage.setScene(new SignUp(stage, ms, this));
+                if (SignUpS == null)
+                    SignUpS = new SignIn(stage, ms, this);
+                stage.setScene(SignUpS);
             } catch (FileNotFoundException fileNotFoundException)
             {
                 fileNotFoundException.printStackTrace();

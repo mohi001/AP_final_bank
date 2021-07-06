@@ -131,7 +131,9 @@ public class Menu extends Scene {
         transfer.setOnAction(e -> {
             try
             {
-                stage.setScene(new TransferS(stage, ms, this));
+                if (transferS == null)
+                    transferS = new TransferS(stage, ms, this);
+                stage.setScene(transferS);
             } catch (IOException ioException)
             {
                 ioException.printStackTrace();
@@ -143,7 +145,9 @@ public class Menu extends Scene {
         payBill.setOnAction(e -> {
             try
             {
-                stage.setScene(new PayBillS(stage, ms, this));
+                if (payBillS == null)
+                    payBillS = new PayBillS(stage, ms, this);
+                stage.setScene(payBillS);
             } catch (IOException ioException)
             {
                 ioException.printStackTrace();
@@ -155,7 +159,9 @@ public class Menu extends Scene {
         reqLoan.setOnAction(e -> {
             try
             {
-                stage.setScene(new ReqLoanS(stage, ms, this));
+                if (reqLoanS == null)
+                    reqLoanS = new ReqLoanS(stage, ms, this);
+                stage.setScene(reqLoanS);
             } catch (IOException ioException)
             {
                 ioException.printStackTrace();
@@ -167,7 +173,9 @@ public class Menu extends Scene {
         closeAccount.setOnAction(e -> {
             try
             {
-                stage.setScene(new CloseAccountS(stage, ms, this));
+                if (closeAccountS == null)
+                    closeAccountS = new CloseAccountS(stage, ms, this);
+                stage.setScene(closeAccountS);
             } catch (IOException ioException)
             {
                 ioException.printStackTrace();
