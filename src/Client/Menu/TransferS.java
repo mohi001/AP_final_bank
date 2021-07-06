@@ -1,6 +1,5 @@
 package Client.Menu;
 
-import Client.ButtonScene;
 import Client.InUpField;
 import Client.Messenger;
 import Client.ValidAble;
@@ -11,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -24,12 +24,8 @@ public class TransferS extends Scene {
     private String toCode;
     private String toName;
 
-    public TransferS(Stage stage, Messenger ms) throws IOException {
+    public TransferS(Stage stage, Messenger ms, Scene back) throws IOException {
         super(root, 900, 700);
-        ButtonScene back = ButtonScene.getBackButton(ms, stage);
-        root.getChildren().add(back);
-        back.setTranslateX(-400);
-        back.setTranslateY(-50);
         root.setBackground(new Background(new BackgroundFill
                 (Color.DARKGRAY, new CornerRadii(1),
                         new Insets(0.0, 0.0, 0.0, 0.0))));
@@ -131,6 +127,13 @@ public class TransferS extends Scene {
             } else
             {
                 answer.setText("failed to\n transfer");
+            }
+        });
+        setOnKeyPressed(e ->
+        {
+            if (e.getCode() == KeyCode.ESCAPE)
+            {
+                stage.setScene(back);
             }
         });
     }

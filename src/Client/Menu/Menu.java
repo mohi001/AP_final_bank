@@ -15,6 +15,15 @@ import java.io.IOException;
 
 public class Menu extends Scene {
     private static final VBox root = new VBox();
+    private Scene newAccountS;
+    private Scene infoS;
+    private Scene manageS;
+    private Scene usefulS;
+    private Scene transferS;
+    private Scene payBillS;
+    private Scene reqLoanS;
+    private Scene closeAccountS;
+
 
     public Menu(Stage stage, Messenger ms) throws IOException {
         super(root, 900, 700);
@@ -53,14 +62,18 @@ public class Menu extends Scene {
         root.getChildren().addAll(up, MainMenu);
     }
 
-    private static void addButtons(GridPane p, Stage stage, Messenger ms) throws IOException
+    private void addButtons(GridPane p, Stage stage, Messenger ms) throws IOException
     {
         ButtonScene newAccount = new ButtonScene(150, 150,
                 "src/Client/Resources/newacc.png", stage);
         newAccount.setOnAction(e -> {
             try
             {
-                stage.setScene(new NewAccount(stage, ms));
+                if (newAccountS == null)
+                {
+                    newAccountS = new NewAccount(stage, ms, this);
+                }
+                stage.setScene(newAccountS);
             } catch (FileNotFoundException fileNotFoundException)
             {
                 fileNotFoundException.printStackTrace();
@@ -72,7 +85,12 @@ public class Menu extends Scene {
         info.setOnAction(e -> {
             try
             {
-                stage.setScene(new InfoS(stage, ms));
+
+                if (infoS == null)
+                {
+                    infoS = new NewAccount(stage, ms, this);
+                }
+                stage.setScene(infoS);
             } catch (IOException ioException)
             {
                 ioException.printStackTrace();
@@ -85,7 +103,9 @@ public class Menu extends Scene {
         manage.setOnAction(e -> {
             try
             {
-                stage.setScene(new ManageS(stage, ms));
+                if (manageS == null)
+                    manageS = new ManageS(stage, ms, this);
+                stage.setScene(manageS);
             } catch (IOException ioException)
             {
                 ioException.printStackTrace();
@@ -97,7 +117,9 @@ public class Menu extends Scene {
         important.setOnAction(e -> {
             try
             {
-                stage.setScene(new UsefulS(stage, ms));
+                if (usefulS == null)
+                    usefulS = new UsefulS(stage, ms, this);
+                stage.setScene(usefulS);
             } catch (IOException ioException)
             {
                 ioException.printStackTrace();
@@ -109,7 +131,7 @@ public class Menu extends Scene {
         transfer.setOnAction(e -> {
             try
             {
-                stage.setScene(new TransferS(stage, ms));
+                stage.setScene(new TransferS(stage, ms, this));
             } catch (IOException ioException)
             {
                 ioException.printStackTrace();
@@ -121,7 +143,7 @@ public class Menu extends Scene {
         payBill.setOnAction(e -> {
             try
             {
-                stage.setScene(new PayBillS(stage, ms));
+                stage.setScene(new PayBillS(stage, ms, this));
             } catch (IOException ioException)
             {
                 ioException.printStackTrace();
@@ -133,7 +155,7 @@ public class Menu extends Scene {
         reqLoan.setOnAction(e -> {
             try
             {
-                stage.setScene(new ReqLoanS(stage, ms));
+                stage.setScene(new ReqLoanS(stage, ms, this));
             } catch (IOException ioException)
             {
                 ioException.printStackTrace();
@@ -145,7 +167,7 @@ public class Menu extends Scene {
         closeAccount.setOnAction(e -> {
             try
             {
-                stage.setScene(new CloseAccountS(stage, ms));
+                stage.setScene(new CloseAccountS(stage, ms, this));
             } catch (IOException ioException)
             {
                 ioException.printStackTrace();
@@ -163,6 +185,5 @@ public class Menu extends Scene {
         p.add(payBill, 1, 1);
         p.add(reqLoan, 2, 1);
         p.add(closeAccount, 3, 1);
-
     }
 }

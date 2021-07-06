@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -18,7 +19,7 @@ import java.io.IOException;
 public class EmailConfS extends Scene {
     private static final VBox root = new VBox();
 
-    public EmailConfS(Stage stage, Messenger ms) throws IOException {
+    public EmailConfS(Stage stage, Messenger ms, Scene back) throws IOException {
         super(root, 900, 700);
         root.setSpacing(90);
         root.setAlignment(Pos.BASELINE_CENTER);
@@ -50,20 +51,20 @@ public class EmailConfS extends Scene {
         Button conf = new Button("add alias");
         conf.setMinSize(100, 50);
         conf.setTranslateY(-50);
-        ButtonScene back = ButtonScene.getBackButton(ms, stage);
-        back.setOnAction(e ->
+        setOnKeyPressed(e ->
         {
-            try
+            if (e.getCode() == KeyCode.ESCAPE)
             {
-                ms.sendNS("exit");
-                stage.setScene(new SignUp(stage, ms));
-            } catch (IOException ioException)
-            {
-                ioException.printStackTrace();
+                try
+                {
+                    ms.sendNS("exit");
+                    stage.setScene(back);
+                } catch (Exception exception)
+                {
+                    exception.printStackTrace();
+                }
             }
         });
-        back.setTranslateX(-400);
-        back.setTranslateY(-48);
         conf.setOnAction(e -> {
             String answer = "";
             try
@@ -87,6 +88,6 @@ public class EmailConfS extends Scene {
                 label.setText("wrong code");
             }
         });
-        root.getChildren().addAll(back, label, code, conf);
+        root.getChildren().addAll(label, code, conf);
     }
 }

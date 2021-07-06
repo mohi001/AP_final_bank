@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class ButtonScene extends Hyperlink {
     double sizeX;
@@ -25,9 +24,4 @@ public class ButtonScene extends Hyperlink {
         setPrefHeight(sizeY);
     }
 
-    public static ButtonScene getBackButton(Messenger ms, Stage stage) throws IOException
-    {
-        return new ButtonScene(50, 50, "src/Client/Resources/back.png",
-                stage);
-    }
 }

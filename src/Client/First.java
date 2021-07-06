@@ -23,7 +23,7 @@ public class First extends Scene {
         signIn.setOnAction(e -> {
             try
             {
-                stage.setScene(new SignIn(stage, ms));
+                stage.setScene(new SignIn(stage, ms, this));
             } catch (FileNotFoundException fileNotFoundException)
             {
                 fileNotFoundException.printStackTrace();
@@ -34,7 +34,7 @@ public class First extends Scene {
         signUp.setOnAction(e -> {
             try
             {
-                stage.setScene(new SignUp(stage, ms));
+                stage.setScene(new SignUp(stage, ms, this));
             } catch (FileNotFoundException fileNotFoundException)
             {
                 fileNotFoundException.printStackTrace();

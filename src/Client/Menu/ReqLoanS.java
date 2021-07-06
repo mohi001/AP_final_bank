@@ -1,6 +1,5 @@
 package Client.Menu;
 
-import Client.ButtonScene;
 import Client.InUpField;
 import Client.Messenger;
 import Client.ValidAble;
@@ -9,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -23,7 +23,7 @@ public class ReqLoanS extends Scene {
     private static final GridPane root = new GridPane();
     private final Messenger ms;
 
-    public ReqLoanS(Stage stage, Messenger messenger) throws IOException {
+    public ReqLoanS(Stage stage, Messenger messenger, Scene back) throws IOException {
         super(root, 900, 700);
         ms = messenger;
 
@@ -78,16 +78,12 @@ public class ReqLoanS extends Scene {
         req.setPrefSize(100, 50);
         req.setTranslateX(100);
 
-        ButtonScene back = ButtonScene.getBackButton(ms, stage);
-        back.setTranslateX(-730);
-        back.setTranslateY(-450);
 
         root.add(money, 0, 0);
         root.add(duration, 0, 1);
         root.add(account, 0, 2);
         root.add(req, 0, 3);
         root.add(answer, 1, 2);
-        root.add(back, 1, 3);
 
         ArrayList<InUpField> fields = new ArrayList<>();
         fields.add(money);
@@ -116,6 +112,13 @@ public class ReqLoanS extends Scene {
             } else
             {
                 answer.setText("failed to\n add loan");
+            }
+        });
+        setOnKeyPressed(e ->
+        {
+            if (e.getCode() == KeyCode.ESCAPE)
+            {
+                stage.setScene(back);
             }
         });
     }

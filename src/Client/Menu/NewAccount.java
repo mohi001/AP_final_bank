@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -26,7 +27,7 @@ public class NewAccount extends Scene {
     String kind = "";
     private final Messenger ms;
 
-    public NewAccount(Stage stage, Messenger messenger) throws FileNotFoundException {
+    public NewAccount(Stage stage, Messenger messenger, Scene back) throws FileNotFoundException {
         super(root, 900, 700);
         ms = messenger;
 
@@ -92,7 +93,13 @@ public class NewAccount extends Scene {
             }
 
         });
-
+        setOnKeyPressed(e ->
+        {
+            if (e.getCode() == KeyCode.ESCAPE)
+            {
+                stage.setScene(back);
+            }
+        });
     }
 
     private MenuButton getKindM()
