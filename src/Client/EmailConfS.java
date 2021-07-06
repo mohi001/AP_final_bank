@@ -1,9 +1,6 @@
-package Client.Menu;
+package Client;
 
-import Client.ButtonScene;
-import Client.InUpField;
-import Client.Messenger;
-import Client.ValidAble;
+import Client.Menu.Menu;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,10 +15,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class UsefulS extends Scene {
+public class EmailConfS extends Scene {
     private static final VBox root = new VBox();
 
-    public UsefulS(Stage stage, Messenger ms) throws IOException {
+    public EmailConfS(Stage stage, Messenger ms) throws IOException {
         super(root, 900, 700);
         root.setSpacing(90);
         root.setAlignment(Pos.BASELINE_CENTER);
@@ -45,44 +42,51 @@ public class UsefulS extends Scene {
                 }, "pleas inter only numbers", 0, 0, false
         );
         code.setTranslateX(200);
-        InUpField name = new InUpField("src/Client/Resources/acc",
-                "alias name",
-                new ValidAble() {
-                    @Override
-                    public boolean isValid(String s) {
-                        return true;
-                    }
-                }, "please inter valid code",
-                0, 0, false);
-        name.setTranslateX(200);
-        Label label = new Label("please inter account to add alias");
-        label.setWrapText(true);
+
+        Label label = new Label("please chek your email \nand inter code");
+        label.setWrapText(false);
         label.setStyle("-fx-font-size: 30");
-        Button add = new Button("add alias");
-        add.setMinSize(100, 50);
-        add.setTranslateY(-50);
+        label.setPrefSize(400, 100);
+        Button conf = new Button("add alias");
+        conf.setMinSize(100, 50);
+        conf.setTranslateY(-50);
         ButtonScene back = ButtonScene.getBackButton(ms, stage);
+        back.setOnAction(e ->
+        {
+            try
+            {
+                ms.sendNS("exit");
+                stage.setScene(new SignUp(stage, ms));
+            } catch (IOException ioException)
+            {
+                ioException.printStackTrace();
+            }
+        });
         back.setTranslateX(-400);
         back.setTranslateY(-48);
-        add.setOnAction(e -> {
+        conf.setOnAction(e -> {
             String answer = "";
             try
             {
-                answer = ms.sendNS("UAliasAdd", code.getText(),
-                        name.getText());
+                answer = ms.sendNS(code.getText());
             } catch (IOException ioException)
             {
                 ioException.printStackTrace();
             }
             if (answer.equals("true"))
             {
-                label.setText("alias added succefully");
+                try
+                {
+                    stage.setScene(new Menu(stage, ms));
+                } catch (IOException fileNotFoundException)
+                {
+                    fileNotFoundException.printStackTrace();
+                }
             } else
             {
-                label.setText("faild to do oparatin");
+                label.setText("wrong code");
             }
         });
-        root.getChildren().addAll(back, label, code, name, add);
+        root.getChildren().addAll(back, label, code, conf);
     }
 }
-

@@ -1,6 +1,5 @@
 package Client;
 
-import Client.Menu.UsefulS;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -12,13 +11,20 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Socket socket = new Socket("localhost", 8888);
-        DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
-        DataInputStream inputStream = new DataInputStream(socket.getInputStream());
-        Messenger messenger = new Messenger(outputStream, inputStream);
-        stage.setScene(new UsefulS(stage, messenger));
-        stage.setTitle("|");
-        stage.show();
+        try
+        {
+            Socket socket = new Socket("localhost", 8888);
+            DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+            DataInputStream inputStream = new DataInputStream(socket.getInputStream());
+            Messenger messenger = new Messenger(outputStream, inputStream);
+            stage.setScene(new EmailConfS(stage, messenger));
+            stage.setTitle("|");
+            stage.show();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            stage.setScene(new ErroS());
+        }
     }
 
     public static void main(String[] args) {

@@ -1,7 +1,6 @@
 package Client;
 
 
-import Client.Menu.Menu;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -30,21 +29,17 @@ public class SignUp extends Scene {
                 (Color.BLUEVIOLET, new CornerRadii(1),
                         new Insets(0.0, 0.0, 0.0, 0.0))));
 
-        InUpField name = new InUpField("src/Client/Resources/sign_in.png",
+        InUpField name = new InUpField("src/Client/Resources/acc.png",
                 "name",
                 new ValidAble() {
                     @Override
                     public boolean isValid(String s) {
-                        if (s.split("\\s").length == 2)
-                        {
-                            return true;
-                        }
-                        return false;
+                        return s.split("\\s").length == 2;
                     }
                 }, "please inter valid Name",
-                width / 2 - 250, height / 2 - 200,false);
+                width / 2 - 250, height / 2 - 200, false);
 
-        InUpField codeM = new InUpField("src/Client/Resources/sign_in.png",
+        InUpField codeM = new InUpField("src/Client/Resources/acc.png",
                 "national code",
                 new ValidAble() {
                     @Override
@@ -62,16 +57,8 @@ public class SignUp extends Scene {
                     }
                 }, "please inter valid code(with 0)",
                 width / 2 - 250, height / 2 - 130, false);
-        InUpField pass = new InUpField("src/Client/Resources/sign_in.png",
-                "password",
-                new ValidAble() {
-                    @Override
-                    public boolean isValid(String s) {
-                        return true;
-                    }
-                }, "",
-                width / 2 - 250, height / 2 - 60, true);
-
+        InUpField pass = InUpField.getPass();
+//TODO
         InUpField phoneNumber = new InUpField("src/Client/Resources/sign_in.png",
                 "phone number",
                 new ValidAble() {
@@ -90,6 +77,7 @@ public class SignUp extends Scene {
                     }
                 }, "please inter valid phone number",
                 width / 2 - 250, height / 2 + 10,false);
+        //TODO
         InUpField email = new InUpField("src/Client/Resources/sign_in.png",
                 "email",
                 new ValidAble() {
@@ -120,7 +108,6 @@ public class SignUp extends Scene {
             {
                 if (!f.checkValid())
                 {
-                    //TODO
                     return;
                 }
 
@@ -138,14 +125,14 @@ public class SignUp extends Scene {
             {
                 try
                 {
-                    stage.setScene(new Menu(stage, ms));
-                } catch (FileNotFoundException fileNotFoundException)
+                    stage.setScene(new EmailConfS(stage, ms));
+                } catch (IOException fileNotFoundException)
                 {
                     fileNotFoundException.printStackTrace();
                 }
             } else
             {
-                //TODO
+                codeM.setNotVL("not a valid email or address");
             }
         });
         root.getChildren().addAll(button);

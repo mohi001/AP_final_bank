@@ -27,7 +27,7 @@ public class SignIn extends Scene {
                 (Color.BLUEVIOLET, new CornerRadii(1),
                         new Insets(0.0, 0.0, 0.0, 0.0))));
 
-        InUpField codeM = new InUpField("src/Client/Resources/sign_in.png",
+        InUpField codeM = new InUpField("src/Client/Resources/acc.png",
                 "national code",
                 new ValidAble() {
                     @Override
@@ -73,13 +73,13 @@ public class SignIn extends Scene {
                     try
                     {
                         stage.setScene(new Menu(stage, ms));
-                    } catch (FileNotFoundException fileNotFoundException)
+                    } catch (IOException fileNotFoundException)
                     {
                         fileNotFoundException.printStackTrace();
                     }
                 } else
                 {
-                    //TODO
+                    codeM.setNotVL("wrong email or address");
                 }
             }
         });
