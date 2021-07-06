@@ -4,7 +4,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
-public class SendMail {
+class SendMail {
     private Properties properties;
     private Session session ;
     private MimeMessage mimeMessage ;
@@ -20,7 +20,8 @@ public class SendMail {
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
         session = Session.getDefaultInstance(properties, null);
-        code = (int)(Math.random() * 900 + 100) ;
+        //code = (int)(Math.random() * 900 + 100) ;
+        code = 999 ;
         message = "Hi!\nYour sign up code is " + code ;
     }
 

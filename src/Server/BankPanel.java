@@ -147,10 +147,13 @@ public class BankPanel implements Runnable {
         String phone = inputStream.readUTF();
         String email = inputStream.readUTF();
         User temp = searchUser(identity);
-        if (temp == null && verificationCode(email)) {
-            user = new User(identity, email, password, phone, name);
-            users.add(user);
+        if (temp == null) {
             outputStream.writeUTF("true");
+            if (verificationCode(email)) {
+                user = new User(identity, email, password, phone, name);
+                users.add(user);
+                outputStream.writeUTF("true");
+            }
         } else {
             outputStream.writeUTF("false");
         }
