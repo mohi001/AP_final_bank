@@ -53,7 +53,7 @@ public class NewAccount extends Scene {
                     return false;
                 }
             }
-        }, "pleas inter only numbers", 0, 0, false
+        }, "pleas enter only numbers", 0, 0, false
         );
 
         InUpField pass = InUpField.getPass();

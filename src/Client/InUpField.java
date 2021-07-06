@@ -78,7 +78,7 @@ public class InUpField extends HBox {
 
     public static InUpField getPass() throws FileNotFoundException
     {
-        InUpField pass = new InUpField("src/Client/Resources/key.png", "pleas inter password", new ValidAble() {
+        InUpField pass = new InUpField("src/Client/Resources/key.png", "pleas enter password", new ValidAble() {
             @Override
             public boolean isValid(String s) {
                 return true;

@@ -40,11 +40,11 @@ public class EmailConfS extends Scene {
                             return false;
                         }
                     }
-                }, "pleas inter only numbers", 0, 0, false
+                }, "pleas enter only numbers", 0, 0, false
         );
         code.setTranslateX(200);
 
-        Label label = new Label("please chek your email \nand inter code");
+        Label label = new Label("please chek your email \nand enter code");
         label.setWrapText(false);
         label.setStyle("-fx-font-size: 30");
         label.setPrefSize(400, 100);

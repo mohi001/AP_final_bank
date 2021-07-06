@@ -42,7 +42,7 @@ public class SignUp extends Scene {
                     public boolean isValid(String s) {
                         return true;
                     }
-                }, "please inter valid Name",
+                }, "please enter valid Name",
                 width / 2 - 250, height / 2 - 200, false);
 
         InUpField codeM = new InUpField("src/Client/Resources/acc.png",
@@ -61,7 +61,7 @@ public class SignUp extends Scene {
                         }
                         return false;
                     }
-                }, "please inter valid code(with 0)",
+                }, "please enter valid code(with 0)",
                 width / 2 - 250, height / 2 - 130, false);
         InUpField pass = InUpField.getPass();
         pass.setTranslateX(width / 2 - 250);
@@ -74,17 +74,17 @@ public class SignUp extends Scene {
                     public boolean isValid(String s) {
                         try
                         {
-                            Integer.parseInt(s);
-                            if (s.length() == 11)
-                                return true;
+//                            Integer.parseInt(s);
+//                            if (s.length() == 11)
+                            return true;
                         } catch (Exception e)
                         {
                             return false;
                         }
-                        return false;
+//                        return false;
                     }
-                }, "please inter valid phone number",
-                width / 2 - 250, height / 2 + 10,false);
+                }, "please enter valid phone number",
+                width / 2 - 250, height / 2 + 10, false);
         //TODO
         InUpField email = new InUpField("src/Client/Resources/email.png",
                 "email",
@@ -95,7 +95,7 @@ public class SignUp extends Scene {
                         Matcher match = pattern.matcher(s);
                         return match.matches();
                     }
-                }, "please inter valid phone email",
+                }, "please enter valid phone email",
                 width / 2 - 250, height / 2 + 80, false);
 
         ArrayList<InUpField> fields = new ArrayList<InUpField>();

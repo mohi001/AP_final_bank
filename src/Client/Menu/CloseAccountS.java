@@ -52,7 +52,7 @@ public class CloseAccountS extends Scene {
                 label.setText("account closed correctly");
             } else
             {
-                label.setText("pleas inter password correctly");
+                label.setText("pleas enter password correctly");
             }
         });
         root.getChildren().addAll(label, choseAccount, pass, close);

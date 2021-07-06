@@ -36,7 +36,7 @@ public class ManageS extends Scene {
                     public boolean isValid(String s) {
                         return true;
                     }
-                }, "please inter valid code",
+                }, "please enter valid code",
                 0, 0, false);
         name.setTranslateX(200);
         Label label = new Label("please chose account to change or add alias");

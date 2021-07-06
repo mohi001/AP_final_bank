@@ -89,7 +89,7 @@ public class Menu extends Scene {
 
                 if (infoS == null)
                 {
-                    infoS = new NewAccount(stage, ms, this);
+                    infoS = new InfoS(stage, ms, this);
                 }
                 stage.setScene(infoS);
             } catch (IOException ioException)

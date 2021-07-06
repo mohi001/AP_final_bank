@@ -172,6 +172,7 @@ public class BankPanel implements Runnable {
                 outputStream.writeUTF("false");
             s = inputStream.readUTF();
         }
+        outputStream.writeUTF("true");
         return false;
     }
 

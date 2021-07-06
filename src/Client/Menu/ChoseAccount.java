@@ -12,24 +12,29 @@ public class ChoseAccount extends MenuButton {
         setStyle("-fx-font-size: 25px");
         setPrefSize(400, 40);
         String[] accounts = string.split("\\n");
-        for (String s : accounts)
+        if (accounts[0].equals("\"\""))
+            setText("no account fund");
+        else
         {
-            MenuItem menuItem = new MenuItem();
-            String[] strs = s.split("\\s");
-            if (!strs[3].equals("-1"))
+            for (String s : accounts)
             {
-                menuItem.setText(strs[3] + "(" + strs[0] + ")");
-            } else
-            {
-                menuItem.setText(strs[0]);
-            }
-            menuItem.setOnAction(e ->
-            {
-                accountNum = strs[0];
-                setText(menuItem.getText());
-            });
+                MenuItem menuItem = new MenuItem();
+                String[] strs = s.split("\\s");
+                if (!strs[3].equals("-1"))
+                {
+                    menuItem.setText(strs[3] + "(" + strs[0] + ")");
+                } else
+                {
+                    menuItem.setText(strs[0]);
+                }
+                menuItem.setOnAction(e ->
+                {
+                    accountNum = strs[0];
+                    setText(menuItem.getText());
+                });
 
-            getItems().add(menuItem);
+                getItems().add(menuItem);
+            }
         }
     }
 
