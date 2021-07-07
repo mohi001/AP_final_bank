@@ -1,10 +1,12 @@
 package Client.Menu;
 
 import Client.Messenger;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
@@ -29,7 +31,12 @@ public class AccountsInfoPane extends TitledPane {
                 }
                 if (!answer.equals(""))
                 {
-                    TableView<TransactionClient> tableView = getTable(answer);
+//                    TableView<TransactionClient> tableView = getTable(answer);
+                    VBox tableView = new VBox();
+                    for (String s : answer.split("\\n"))
+                    {
+                        tableView.getChildren().add(new Label(s));
+                    }
                     setContent(tableView);
                 }
                 isSeen = true;

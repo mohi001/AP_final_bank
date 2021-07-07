@@ -31,6 +31,9 @@ public class CloseAccountS extends Scene {
 
         InUpField pass = InUpField.getPass();
         pass.setTranslateX(200);
+
+        ChoseAccount accTo = new ChoseAccount(ms.send("accounts"));
+
         Label label = new Label("please chose account and enter password");
         label.setWrapText(true);
         label.setStyle("-fx-font-size: 30");
@@ -42,7 +45,7 @@ public class CloseAccountS extends Scene {
             try
             {
                 answer = ms.sendNS("close", choseAccount.getAccountNum(),
-                        pass.getText());
+                        pass.getText(), accTo.getAccountNum());
             } catch (IOException ioException)
             {
                 ioException.printStackTrace();

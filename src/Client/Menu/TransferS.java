@@ -145,8 +145,8 @@ public class TransferS extends Scene {
         Scanner sc = new Scanner(answer);
         while (sc.hasNextLine())
         {
-            toCode = sc.next();
             toName = sc.next();
+            toCode = sc.next();
             MenuItem menuItem = new MenuItem(toName);
             menuItem.setOnAction(e -> {
                 tf.setText(toCode);
