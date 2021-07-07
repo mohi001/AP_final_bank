@@ -268,7 +268,7 @@ public class BankPanel implements Runnable {
         String alias = inputStream.readUTF();
         int accountNumber = Integer.parseInt(inputStream.readUTF());
         Account account = searchAccount(accountNumber);
-        if (account == null || !userAccess(account))
+        if (account == null)
             outputStream.writeUTF("false");
         else {
             outputStream.writeUTF("true");
