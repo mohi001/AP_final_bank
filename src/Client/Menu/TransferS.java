@@ -23,6 +23,8 @@ public class TransferS extends Scene {
     private static final VBox root = new VBox();
     private String toCode;
     private String toName;
+    MenuButton AToAlias;
+    InUpField accountTo;
 
     public TransferS(Stage stage, Messenger ms, Scene back) throws IOException {
         super(root, 900, 700);
@@ -59,7 +61,7 @@ public class TransferS extends Scene {
                 }, "pleas inter only numbers", 0, 0, false
         );
 
-        InUpField accountTo = new InUpField("src/Client/Resources/acc.png", "pleas inter destination",
+        accountTo = new InUpField("src/Client/Resources/acc.png", "pleas inter destination",
                 new ValidAble() {
                     @Override
                     public boolean isValid(String s) {
@@ -74,7 +76,7 @@ public class TransferS extends Scene {
                     }
                 }, "pleas only inter number", 0, 0, false
         );
-        MenuButton AToAlias = getAccountToM(ms, accountTo);
+        AToAlias = getAccountToM(ms, accountTo);
         AToAlias.setPrefSize(400, 50);
         AToAlias.setStyle("-fx-font-size: 25");
         Button trans = new Button("transfer money");
@@ -136,6 +138,11 @@ public class TransferS extends Scene {
                 stage.setScene(back);
             }
         });
+    }
+
+    public void ref(Messenger ms) throws IOException
+    {
+        AToAlias = getAccountToM(ms, accountTo);
     }
 
     private MenuButton getAccountToM(Messenger ms, InUpField tf) throws IOException

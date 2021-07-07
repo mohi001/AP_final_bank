@@ -136,6 +136,10 @@ public class Menu extends Scene {
             {
                 if (transferS == null)
                     transferS = new TransferS(stage, ms, this);
+                else
+                {
+                    ((TransferS) transferS).ref(ms);
+                }
                 stage.setScene(transferS);
             } catch (IOException ioException)
             {
