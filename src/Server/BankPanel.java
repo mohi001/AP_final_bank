@@ -341,17 +341,19 @@ public class BankPanel implements Runnable {
     }
 
     private void closeAccount() throws IOException {
-        Account account = searchAccount(Integer.parseInt(inputStream.readUTF()));
+        Account sender = searchAccount(Integer.parseInt(inputStream.readUTF()));
         String password;
         if (!adminMode)
             password = inputStream.readUTF();
         else
-            password = account.getPassword();
-        if (account == null || !password.equals(account.getPassword()) || !userAccess(account))
+            password = sender.getPassword();
+        Account receiver = searchAccount(Integer.parseInt(inputStream.readUTF()));
+        if (sender == null || receiver == null || !password.equals(sender.getPassword()) || !userAccess(sender))
             outputStream.writeUTF("false");
         else {
-            user.getMyAccounts().remove(account);
-            allAccounts.remove(account);
+            sender.send(receiver.getAccountNumber(), sender.getBalance()) ;
+            user.getMyAccounts().remove(sender);
+            allAccounts.remove(sender);
             outputStream.writeUTF("true");
         }
     }
