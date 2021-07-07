@@ -348,7 +348,7 @@ public class BankPanel implements Runnable {
         else
             password = sender.getPassword();
         Account receiver = searchAccount(Integer.parseInt(inputStream.readUTF()));
-        if (sender == null || receiver == null || !password.equals(sender.getPassword()) || !userAccess(sender))
+        if (sender == null || (receiver == null && sender.getBalance() > 0 ) || !password.equals(sender.getPassword()) || !userAccess(sender))
             outputStream.writeUTF("false");
         else {
             sender.send(receiver.getAccountNumber(), sender.getBalance()) ;
