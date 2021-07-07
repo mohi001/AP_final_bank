@@ -44,8 +44,15 @@ public class CloseAccountS extends Scene {
             String answer = "";
             try
             {
-                answer = ms.sendNS("close", choseAccount.getAccountNum(),
-                        pass.getText(), accTo.getAccountNum());
+                if (accTo.getAccountNum() == "")
+                {
+                    answer = ms.sendNS("close", choseAccount.getAccountNum(),
+                            pass.getText(), "0");
+                } else
+                {
+                    answer = ms.sendNS("close", choseAccount.getAccountNum(),
+                            pass.getText(), accTo.getAccountNum());
+                }
             } catch (IOException ioException)
             {
                 ioException.printStackTrace();
@@ -58,7 +65,7 @@ public class CloseAccountS extends Scene {
                 label.setText("pleas enter password correctly");
             }
         });
-        root.getChildren().addAll(label, choseAccount, pass, close);
+        root.getChildren().addAll(label, choseAccount, pass, accTo, close);
         setOnKeyPressed(e ->
         {
             if (e.getCode() == KeyCode.ESCAPE)

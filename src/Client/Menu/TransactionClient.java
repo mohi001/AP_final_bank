@@ -4,11 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class TransactionClient {
-    String date;
-    String hour;
-    String type;
-    String accountTo;
-    double balance;
+    private String date;
+    private String hour;
+    private String type;
+    private String accountTo;
+    private double balance;
 
     public TransactionClient(String string) {
         String[] strings = string.split("\\s");

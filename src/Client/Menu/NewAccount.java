@@ -23,7 +23,6 @@ import java.io.IOException;
 
 public class NewAccount extends Scene {
     private static final GridPane root = new GridPane();
-    String message = "";
     String kind = "";
     private final Messenger ms;
 

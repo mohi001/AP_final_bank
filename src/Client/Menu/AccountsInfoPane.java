@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class AccountsInfoPane extends TitledPane {
     private String accountNum;
-    boolean isSeen = false;
+    private boolean isSeen = false;
 
     public AccountsInfoPane(Messenger ms, String string)
     {
